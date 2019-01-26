@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Mobile : MonoBehaviour
 {
-    public int targetX;
-    public int targetY;
+    public Vector3Int target;
 
     public Vector3Int waypointCellCoords;
 
@@ -20,9 +19,7 @@ public class Mobile : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            targetX = cellMouse.x;
-            targetY = cellMouse.y;
+            target = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
         float threshold = 0.1f;
@@ -32,7 +29,7 @@ public class Mobile : MonoBehaviour
         {
             findNextWaypointToTarget(cellCoords);
         }
-        else if (cellCoords.x != targetX && cellCoords.y != targetY)
+        else if (cellCoords != target)
         {
             findNextWaypointToTarget(cellCoords);
         }
@@ -50,7 +47,7 @@ public class Mobile : MonoBehaviour
         Debug.Log("Starting to pathfind...");
         var cellBounds = GameController.INSTANCE.tilemap.cellBounds;
         LinkedList<PathNode> path = GameController.INSTANCE.getPath(currentCellCoords.x - cellBounds.x, currentCellCoords.y - cellBounds.y,
-            targetX - cellBounds.x, targetY - cellBounds.y);
+            target.x - cellBounds.x, target.y - cellBounds.y);
 
         if (path != null && path.Count > 1)
         {

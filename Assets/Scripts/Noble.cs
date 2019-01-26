@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Noble : MonoBehaviour
+public class Noble : Character
 {
     
     private WishEnum currentWish = WishEnum.WAIT;

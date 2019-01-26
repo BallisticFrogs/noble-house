@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Servant : MonoBehaviour
+public class Servant : Character
 {
     private Vector2 direction;
     

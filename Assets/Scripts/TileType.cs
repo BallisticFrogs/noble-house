@@ -5,5 +5,6 @@ using UnityEngine;
 public enum TileType
 {
     CHARACTER,
-    WALL
+    WALL,
+    WELL
 }

@@ -33,9 +33,7 @@ public class UIManager : MonoBehaviour
     {
         tasksList = new GameObject[TASK_LIST_SIZE];
         for (int i = 0 ; i < TASK_LIST_SIZE ; i++ ) {
-            string task = "Task"+i;
-            tasksList[i] = GameObject.Find(task);
-            Debug.Log(task + " "+ tasksList[i]);
+            tasksList[i] = GameObject.Find("Task"+i);
         }
         happynessSlider = GameObject.Find("Happiness").GetComponent<Slider>();
         angrynessSlider = GameObject.Find("Angriness").GetComponent<Slider>();
@@ -53,7 +51,6 @@ public class UIManager : MonoBehaviour
     // 9 displayed tasks only. Return false if tasklist full
     public bool AddTask(WishEnum wish) {
         for (int i = 0 ; i < TASK_LIST_SIZE; i ++) {
-            Debug.Log("i:" + i);
             Text taskText = tasksList[i].GetComponent<Text>();
             taskText.text = GetTextFromWish(wish);
             // Do not continue.
@@ -67,10 +64,10 @@ public class UIManager : MonoBehaviour
         {
             case WishEnum.HUNGRY:
             return "I'm hungry!";
-            case WishEnum.THIRSTY:
-            return "I'm thirsty!";
-            case WishEnum.STROLL:
-            return "I want to go walking!";
+            case WishEnum.WATER:
+            return "I'm thirsty for water!";
+            case WishEnum.TEA:
+            return "I'm thirsty for tea!";
             default :
             return null;
         }

@@ -10,10 +10,13 @@ public class Noble : Character
     private float delayBeforeNewTask;
 
     public GameObject wishGameObject;
-    public Sprite wishHunt;
+    public GameObject bubbleGameObject;
+
+    public Sprite wishWater;
+    public Sprite wishTea;
     public Sprite wishHungry;
 
-    public WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.THIRSTY };
+    public WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.WATER, WishEnum.TEA };
     public int minDelayBeforeNewTask = 10;
     public int maxDelayBeforeNewTask = 20;
 
@@ -34,14 +37,20 @@ public class Noble : Character
                 // Pick a task
                 currentWish = availableWishes[(int) Random.Range(0, availableWishes.Length)];
                 UIManager.INSTANCE.AddTask(currentWish);
+                bubbleGameObject.SetActive(true);
+                wishGameObject.SetActive(true); 
                 switch (currentWish) {
                     case WishEnum.HUNGRY: 
                         Debug.Log("Current wish: hungry");
                         wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
                     break;
-                    case WishEnum.THIRSTY:
-                    Debug.Log("Current wish: thirsty");
-                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHunt;
+                    case WishEnum.TEA:
+                    Debug.Log("Current wish: tea");
+                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishTea;
+                    break;
+                    case WishEnum.WATER:
+                    Debug.Log("Current wish: water");
+                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishWater;
                     break;
                 }
             }
@@ -77,8 +86,13 @@ public class Noble : Character
                     return true;
                 } 
                 break;
-            case WishEnum.THIRSTY:
+            case WishEnum.WATER:
                 if (currentWishTimeCompletion > 60) {
+                    return true;
+                }
+                break;
+            case WishEnum.TEA:
+                if (currentWishTimeCompletion > 100) {
                     return true;
                 }
                 break;
@@ -90,5 +104,7 @@ public class Noble : Character
         currentWish = WishEnum.WAIT;
         currentWishTimeCompletion = 0;
         delayBeforeNewTask = Random.Range(minDelayBeforeNewTask, maxDelayBeforeNewTask);
+        wishGameObject.SetActive(false);
+        bubbleGameObject.SetActive(false);
     }
 }

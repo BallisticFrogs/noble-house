@@ -2,5 +2,5 @@ using System.Collections.Generic;
 
 public enum WishEnum
 {
-    HUNGRY, THIRSTY, STROLL, WAIT
+    HUNGRY, TEA, WATER, STROLL, WAIT
 }

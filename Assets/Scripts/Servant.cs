@@ -14,13 +14,11 @@ public class Servant : Character
     public GameObject progressBarBack;
     public GameObject progressBar;
 
-    // Start is called before the first frame update
     void Start()
     {
         base.Start();
     }
 
-    // Update is called once per frame
     void Update()
     {
         base.Update();
@@ -49,39 +47,39 @@ public class Servant : Character
         switch (wt.tileType)
         {
             case TileType.WELL:
-                longTask = new LongTask(waterBucket, HoldableObject.WATER_BUCKET, UnityEngine.Random.Range(2, 4.0f));
+                longTask = new LongTask(waterBucket, HoldableObject.WATER_BUCKET, UnityEngine.Random.Range(2.0f, 4.0f));
                 deactivateAllSprites();
                 progressBarBack.SetActive(true);
                 break;
             case TileType.LARDER:
-                longTask = new LongTask(chicken, HoldableObject.CHICKEN, UnityEngine.Random.Range(2, 3.0f));
+                longTask = new LongTask(chicken, HoldableObject.CHICKEN, UnityEngine.Random.Range(1.5f, 3.0f));
                 deactivateAllSprites();
                 progressBarBack.SetActive(true);
                 break;
             case TileType.KITCHEN:
-                switch (this.objectInHand)
+                switch (objectInHand)
                 {
                     case HoldableObject.WATER_BUCKET:
                         deactivateAllSprites();
-                        longTask = new LongTask(teaPot, HoldableObject.TEA_POT, UnityEngine.Random.Range(2, 5.0f));
+                        longTask = new LongTask(waterBucket, teaPot, HoldableObject.TEA_POT, UnityEngine.Random.Range(2.0f, 5.0f));
                         progressBarBack.SetActive(true);
                         break;
                     case HoldableObject.CHICKEN:
                         deactivateAllSprites();
-                        longTask = new LongTask(cookedChicken, HoldableObject.COOKED_CHICKEN, UnityEngine.Random.Range(2, 5.0f));
+                        longTask = new LongTask(chicken, cookedChicken, HoldableObject.COOKED_CHICKEN, UnityEngine.Random.Range(2.0f, 5.0f));
                         progressBarBack.SetActive(true);
                         break;
                 }
                 break;
             case TileType.THRONE:
-                switch (this.objectInHand)
+                switch (objectInHand)
                 {
                     case HoldableObject.TEA_POT:
-                        this.objectInHand = HoldableObject.NONE;
+                        objectInHand = HoldableObject.NONE;
                         deactivateAllSprites();
                         break;
                     case HoldableObject.COOKED_CHICKEN:
-                        this.objectInHand = HoldableObject.NONE;
+                        objectInHand = HoldableObject.NONE;
                         deactivateAllSprites();
                         break;
                 }
@@ -100,7 +98,13 @@ public class Servant : Character
     public void SetTarget(Vector3Int newTarget)
     {
         base.SetTarget(newTarget);
+        var previousObjectToReactivate = new GameObject();
+        if (longTask != null && longTask.previousHeldGameObject != null)
+        {
+            previousObjectToReactivate = longTask.previousHeldGameObject;
+        }
         longTask = null;
+        previousObjectToReactivate.SetActive(true);
         progressBarBack.SetActive(false);
         progressBar.SetActive(false);
     }

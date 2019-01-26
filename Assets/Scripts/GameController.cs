@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
 {
     public static GameController INSTANCE;
 
+    public UnityEngine.Color SELECTEC_COLOR = new UnityEngine.Color(0, 1, 0);
+
     public Tilemap tilemap;
 
     public PathNode[,] PathfindingMap;
@@ -74,10 +76,15 @@ public class GameController : MonoBehaviour
             {
                 var servant = rayhit.collider.gameObject.GetComponent<Servant>();
                 this.selectedServant = servant;
+                servant.GetComponent<SpriteRenderer>().color = SELECTEC_COLOR;
             }
             else
             {
-                this.selectedServant = null;
+                if (selectedServant != null)
+                {
+                    selectedServant.GetComponent<SpriteRenderer>().color = UnityEngine.Color.white;
+                    selectedServant = null;
+                }
             }
         }
 

@@ -74,6 +74,7 @@ public class GameController : MonoBehaviour
             if (selectedServant != null)
             {
                 selectedServant.GetComponent<SpriteRenderer>().color = UnityEngine.Color.white;
+                selectedServant = null;
             }
 
             // raycast to find collider under mouse
@@ -81,12 +82,11 @@ public class GameController : MonoBehaviour
             if (rayhit.collider != null)
             {
                 var servant = rayhit.collider.gameObject.GetComponent<Servant>();
-                selectedServant = servant;
-                servant.GetComponent<SpriteRenderer>().color = SELECTEC_COLOR;
-            }
-            else
-            {
-                selectedServant = null;
+                if (servant != null)
+                {
+                    selectedServant = servant;
+                    servant.GetComponent<SpriteRenderer>().color = SELECTEC_COLOR;
+                }
             }
         }
 
@@ -119,11 +119,12 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-        
+
         UpdateGauge();
     }
 
-    private void UpdateGauge() {
+    private void UpdateGauge()
+    {
         UIManager ui = UIManager.INSTANCE;
         ui.happynessLevel = UnityEngine.Random.Range(0, ui.happynessMax);
         ui.angrynessLevel = UnityEngine.Random.Range(0, ui.angrynessMax);

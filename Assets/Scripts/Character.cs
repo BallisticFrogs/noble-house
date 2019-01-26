@@ -2,10 +2,24 @@ using UnityEngine;
 
 public class Character : Mobile
 {
+    public int life = 100;
+
     public HoldableObject objectInHand;
 
     public LongTask longTask;
+
+    public override void Update()
+    {
+        base.Update();
+
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
+
 
 public class LongTask
 {

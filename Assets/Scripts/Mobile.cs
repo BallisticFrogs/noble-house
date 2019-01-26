@@ -7,17 +7,17 @@ public class Mobile : MonoBehaviour
 {
     public float speed = 0.2f;
 
-    private Vector3Int target;
+    protected Vector3Int target;
 
-    private Vector3Int waypointCellCoords;
+    protected Vector3Int waypointCellCoords;
 
-    public void Start()
+    public virtual void Start()
     {
         target = GameController.INSTANCE.tilemap.WorldToCell(transform.position);
         waypointCellCoords = target;
     }
 
-    public void Update()
+    public virtual void Update()
     {
         Vector3 waypointWorldCoords = GameController.INSTANCE.tilemap.GetCellCenterWorld(waypointCellCoords);
         Vector3Int cellCoords = GameController.INSTANCE.tilemap.WorldToCell(transform.position);
@@ -29,14 +29,15 @@ public class Mobile : MonoBehaviour
         Move();
     }
 
-    private void Move()
+    protected virtual void Move()
     {
         Vector3 waypointWorldCoords = GameController.INSTANCE.tilemap.GetCellCenterWorld(waypointCellCoords);
         Vector3 dist = waypointWorldCoords - transform.position;
         if (dist.magnitude >= speed * 0.1f)
         {
             Vector3 movement = dist.normalized * Math.Min(dist.magnitude, speed);
-            transform.position = transform.position + movement;
+            // movement.z = 0f;
+            transform.position += movement;
         }
     }
 

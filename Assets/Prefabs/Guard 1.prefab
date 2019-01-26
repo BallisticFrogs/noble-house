@@ -120,4 +120,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.3
+  life: 100
   objectInHand: 0
+  reach: 1.5
+  dps: 10
+  bloodPrefab: {fileID: 6237144047605446303, guid: 9ac8cf57283683f42886b4bf84c6f644,
+    type: 3}
+  currentTarget: {fileID: 0}

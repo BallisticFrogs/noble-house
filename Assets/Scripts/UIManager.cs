@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        INSTANCE = this;
+        INSTANCE = this; 
     }
 
     // Update is called once per frame
@@ -21,9 +21,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentServant (Servant s) {
         this.currentServant = s;
+        Debug.Log("Servent selectionned.");
     }
 
-    public void ExecuteAction(GameObject interactiveTile) {
-        this.currentServant.ExecuteAction(interactiveTile);
+    public void ExecuteAction(Resources interactiveObject) {
+        this.currentServant.ExecuteAction(interactiveObject);
     }
 }

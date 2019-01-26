@@ -15,4 +15,8 @@ public class Resources : MonoBehaviour
     {
         
     }
+
+    private void OnMouseUp() {
+        UIManager.INSTANCE.ExecuteAction(this);
+    }
 }

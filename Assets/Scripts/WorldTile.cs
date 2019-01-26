@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldTile : MonoBehaviour
+[CreateAssetMenu]
+public class WorldTile : UnityEngine.Tilemaps.Tile
 {
-
-    public int gridX;
-    public int gridY;
-    public bool walkable;
-    public List<WorldTile> myNeighbours;
+    public TileType Type;    
 
     // Start is called before the first frame update
     void Start()

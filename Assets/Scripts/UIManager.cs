@@ -68,6 +68,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void ExecuteAction(Resources interactiveObject) {
-        this.currentServant.ExecuteAction(interactiveObject);
+        //TODO fix 
+        //this.currentServant.ExecuteAction(interactiveObject);
     }
 }

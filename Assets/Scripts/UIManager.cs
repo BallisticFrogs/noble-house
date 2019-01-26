@@ -5,7 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private Servant currentServant;
-    public static GameObject INSTANCE;
+    public static UIManager INSTANCE;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +19,11 @@ public class UIManager : MonoBehaviour
 
     }
 
-    void UpdateCurrentServant (Servant s) {
+    public void UpdateCurrentServant (Servant s) {
         this.currentServant = s;
     }
 
-    void ExecuteAction(GameObject interactiveTile) {
+    public void ExecuteAction(GameObject interactiveTile) {
         this.currentServant.ExecuteAction(interactiveTile);
     }
 }

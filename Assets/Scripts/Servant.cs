@@ -23,7 +23,7 @@ public class Servant : MonoBehaviour
         UIManager.INSTANCE.UpdateCurrentServant(this);
     }
 
-    void ExecuteAction(GameObject interactiveTile) {
+    public void ExecuteAction(GameObject interactiveTile) {
         // TODO
     }
 }

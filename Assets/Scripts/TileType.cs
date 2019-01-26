@@ -8,5 +8,6 @@ public enum TileType
     KITCHEN,
     THRONE,
     WALL,
-    WELL
+    WELL,
+    LARDER
 }

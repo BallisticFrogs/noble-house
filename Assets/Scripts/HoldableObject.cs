@@ -2,5 +2,7 @@
 {
     NONE,
     WATER_BUCKET,
-    TEA_POT
+    TEA_POT,
+    CHICKEN,
+    COOKED_CHICKEN
 }

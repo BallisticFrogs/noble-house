@@ -15,7 +15,6 @@ public class UserActionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("UAM start");
 
     }
 
@@ -23,7 +22,6 @@ public class UserActionManager : MonoBehaviour
     void Update()
     {
         var cellCoordsForMouse = GetCellCoordsForMouse();
-        Debug.log("cell coords for mouse:" + cellCoordsForMouse);
     }
 
     private Vector3Int GetCellCoordsForMouse()

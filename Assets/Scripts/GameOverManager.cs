@@ -21,7 +21,9 @@ public class GameOverManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("prout");
+        //GameOverDefeat();
+        SoundManager.INSTANCE.ToggleBgAudio();
     }
 
     // Update is called once per frame
@@ -31,15 +33,17 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void GameOverDefeat() {
+        SoundManager.INSTANCE.StopBg();
         SoundManager.INSTANCE.PlayFx(defeatSound);
         gameOverSpriteRenderer.sprite = gameOverDefeatSprite;
-        gameOverSpriteRenderer.gameObject.active = true;
+        gameOverSpriteRenderer.gameObject.SetActive(true);
     }
 
     public void GameOverVictory() {
+        SoundManager.INSTANCE.StopBg();
         SoundManager.INSTANCE.PlayFx(victorySound);
         gameOverSpriteRenderer.sprite = gameOverVictorySprite;
-        gameOverSpriteRenderer.gameObject.active = true;
+        gameOverSpriteRenderer.gameObject.SetActive(true);
     }
     
 }

@@ -13,8 +13,9 @@ public class Servant : Character
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
+        base.Update();
         if (Input.GetMouseButtonUp(0))
         {
             // Coord dans la grille

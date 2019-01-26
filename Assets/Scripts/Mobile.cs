@@ -15,7 +15,7 @@ public class Mobile : MonoBehaviour
         findNextWaypointToTarget(cellCoords);
     }
 
-    void Update()
+    public void Update()
     {
         if (Input.GetMouseButtonUp(0))
         {

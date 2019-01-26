@@ -2,28 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEngine.Tilemaps;
 
 public class Servant : Character
 {
-    public Vector3 target;
-    public Vector3 waypoint;
-    public float speed;
-
-    public Tilemap tileMap;
-    private Grid grid;
-
-    private WorldTile currentTile;
+    private Vector2 direction;
     
     // Start is called before the first frame update
     void Start()
     {
         
-    }
-
-    void Awake() {
-        this.grid = tileMap.layoutGrid;    
     }
 
     // Update is called once per frame
@@ -53,13 +40,13 @@ public class Servant : Character
         }
     }
 
-    private void OnMouseUp()
+    void OnMouseUp()
     {
         UIManager.INSTANCE.UpdateCurrentServant(this);
     }
 
-    public void ExecuteAction(Resources interactiveObject) {
-        this.target = interactiveObject.transform.position;
+    public void ExecuteAction(GameObject interactiveTile) {
+        // TODO
     }
 
     private bool isServantClosedToTile(Vector3Int servantCoords, Vector3Int cellMouse)

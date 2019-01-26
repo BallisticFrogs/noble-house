@@ -43,30 +43,30 @@ public class Servant : Character
         }
     }
 
-    public void handleClicOnSpecialTile(WorldTile wt)
+    public void HandleClicOnSpecialTile(WorldTile wt)
     {
         switch (wt.tileType)
         {
             case TileType.WELL:
                 longTask = new LongTask(waterBucket, HoldableObject.WATER_BUCKET, UnityEngine.Random.Range(2.0f, 4.0f));
-                deactivateAllSprites();
+                DeactivateAllSprites();
                 progressBarBack.SetActive(true);
                 break;
             case TileType.LARDER:
                 longTask = new LongTask(chicken, HoldableObject.CHICKEN, UnityEngine.Random.Range(1.5f, 3.0f));
-                deactivateAllSprites();
+                DeactivateAllSprites();
                 progressBarBack.SetActive(true);
                 break;
             case TileType.KITCHEN:
                 switch (objectInHand)
                 {
                     case HoldableObject.WATER_BUCKET:
-                        deactivateAllSprites();
+                        DeactivateAllSprites();
                         longTask = new LongTask(waterBucket, teaPot, HoldableObject.TEA_POT, UnityEngine.Random.Range(2.0f, 5.0f));
                         progressBarBack.SetActive(true);
                         break;
                     case HoldableObject.CHICKEN:
-                        deactivateAllSprites();
+                        DeactivateAllSprites();
                         longTask = new LongTask(chicken, cookedChicken, HoldableObject.COOKED_CHICKEN, UnityEngine.Random.Range(2.0f, 5.0f));
                         progressBarBack.SetActive(true);
                         break;
@@ -75,20 +75,19 @@ public class Servant : Character
             case TileType.THRONE:
                 switch (objectInHand)
                 {
-                    case HoldableObject.TEA_POT:
-                        objectInHand = HoldableObject.NONE;
-                        deactivateAllSprites();
+                    case HoldableObject.NONE:
+                        Debug.Log("Pas possible, y'a rien à donner");
                         break;
-                    case HoldableObject.COOKED_CHICKEN:
+                    default:
                         objectInHand = HoldableObject.NONE;
-                        deactivateAllSprites();
+                        DeactivateAllSprites();
                         break;
                 }
                 break;
         }
     }
 
-    public void deactivateAllSprites()
+    public void DeactivateAllSprites()
     {
         for (int sprite = 0; sprite < transform.childCount; sprite++)
         {

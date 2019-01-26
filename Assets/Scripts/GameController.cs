@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour
             // Si mon perso est à côté du puits ou autre
             if (isServantCloseToTile(servantCoords, cellMouse))
             {
-                selectedServant.handleClicOnSpecialTile(wt);
+                selectedServant.HandleClicOnSpecialTile(wt);
             }
             return true;
         }

@@ -10,25 +10,22 @@ public class GameController : MonoBehaviour
     public static GameController INSTANCE;
 
     public Tilemap tilemap;
-    public PathNode[,] PathfindingMap;
 
+    public PathNode[,] PathfindingMap;
     public Pathfinder<PathNode, Character> aStar;
 
-    // Start is called before the first frame update
+    [HideInInspector]
+    public Servant selectedServant;
+
     void Awake()
     {
         INSTANCE = this;
+        InitPathfinding();
+    }
 
+    private void InitPathfinding()
+    {
         BoundsInt bounds = tilemap.cellBounds;
-        // Debug.Log("bounds.x = " + bounds.x);
-        // Debug.Log("bounds.y = " + bounds.y);
-        // Debug.Log("bounds.xmax = " + bounds.xMax);
-        // Debug.Log("bounds.xmin = " + bounds.xMin);
-
-        // Debug.Log("0,0 = " + tilemap.GetCellCenterWorld(new Vector3Int(0, 0, 0)));
-        // Debug.Log("-1,-1 = " + tilemap.GetCellCenterWorld(new Vector3Int(-1, -1, 0)));
-        // Debug.Log("origin = " + tilemap.origin);
-
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 
         // Declare Pathfinding Array
@@ -65,9 +62,36 @@ public class GameController : MonoBehaviour
         return path;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (rayhit.collider != null)
+            {
+                var servant = rayhit.collider.gameObject.GetComponent<Servant>();
+                this.selectedServant = servant;
+            }
+            else
+            {
+                this.selectedServant = null;
+            }
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (this.selectedServant != null)
+            {
+                // TODO handle clics on special tiles
+                var target = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                this.selectedServant.SetTarget(target);
+            }
+        }
+    }
+
+    public void ExecuteAction(GameObject interactiveTile)
+    {
+        this.selectedServant.ExecuteAction(interactiveTile);
     }
 }

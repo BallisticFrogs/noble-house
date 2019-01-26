@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private Servant currentServant;
     public static UIManager INSTANCE;
 
     public GameObject[] tasksList;

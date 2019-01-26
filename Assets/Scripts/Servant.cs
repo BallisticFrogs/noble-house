@@ -6,11 +6,10 @@ using UnityEngine;
 public class Servant : Character
 {
     private Vector2 direction;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -40,12 +39,8 @@ public class Servant : Character
         }
     }
 
-    void OnMouseUp()
+    public void ExecuteAction(GameObject interactiveTile)
     {
-        UIManager.INSTANCE.UpdateCurrentServant(this);
-    }
-
-    public void ExecuteAction(GameObject interactiveTile) {
         // TODO
     }
 

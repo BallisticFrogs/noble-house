@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class Mobile : MonoBehaviour
 {
-    private float threshold = 0.1f;
+    public float speed = 0.2f;
 
-    public Vector3Int target;
+    private Vector3Int target;
 
-    public Vector3Int waypointCellCoords;
+    private Vector3Int waypointCellCoords;
 
     void Start()
     {
@@ -19,14 +19,9 @@ public class Mobile : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetMouseButtonUp(0))
-        {
-            target = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        }
-
         Vector3 waypointWorldCoords = GameController.INSTANCE.tilemap.GetCellCenterWorld(waypointCellCoords);
         Vector3Int cellCoords = GameController.INSTANCE.tilemap.WorldToCell(transform.position);
-        if (waypointCellCoords != target && (waypointWorldCoords - transform.position).magnitude < threshold)
+        if (waypointCellCoords != target && (waypointWorldCoords - transform.position).magnitude < speed)
         {
             findNextWaypointToTarget(cellCoords);
         }
@@ -38,9 +33,9 @@ public class Mobile : MonoBehaviour
     {
         Vector3 waypointWorldCoords = GameController.INSTANCE.tilemap.GetCellCenterWorld(waypointCellCoords);
         Vector3 dist = waypointWorldCoords - transform.position;
-        if (dist.magnitude >= threshold * 0.1f)
+        if (dist.magnitude >= speed * 0.1f)
         {
-            Vector3 movement = dist.normalized * Math.Min(dist.magnitude, threshold);
+            Vector3 movement = dist.normalized * Math.Min(dist.magnitude, speed);
             transform.position = transform.position + movement;
         }
     }
@@ -64,6 +59,11 @@ public class Mobile : MonoBehaviour
             waypointCellCoords = new Vector3Int(waypointNode.X + cellBounds.x, waypointNode.Y + cellBounds.y, 0);
             // Debug.Log("found path : " + waypointNode.X + "-" + waypointNode.Y);
         }
+    }
+
+    public void SetTarget(Vector3Int newTarget)
+    {
+        this.target = newTarget;
     }
 
 }

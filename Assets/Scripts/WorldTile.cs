@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class WorldTile : UnityEngine.Tilemaps.Tile
 {
-    public TileType Type;    
+
+    public TileType tileType;
+    public GameObject gameObj;
 
     // Start is called before the first frame update
     void Start()

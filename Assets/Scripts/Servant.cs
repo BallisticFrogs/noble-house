@@ -110,4 +110,10 @@ public class Servant : Character
         progressBar.SetActive(false);
     }
 
+    public void InteractWithNoble()
+    {
+        // TODO stuff
+        Debug.Log("interact with noble");
+    }
+
 }

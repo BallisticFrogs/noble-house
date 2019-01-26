@@ -94,33 +94,64 @@ public class GameController : MonoBehaviour
         {
             if (selectedServant != null)
             {
-                // handle clics on special tiles
-                Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                var tileClicked = GameController.INSTANCE.tilemap.GetTile(cellMouse);
-                Vector3Int servantCoords = GameController.INSTANCE.tilemap.WorldToCell(selectedServant.transform.position);
-
-                if (tileClicked != null && tileClicked.GetType() == typeof(WorldTile))
+                bool handled = DetectClickOnNoble();
+                if (!handled)
                 {
-                    WorldTile wt = tileClicked as WorldTile;
-                    // Si mon perso est à côté du puits ou autre
-                    if (isServantCloseToTile(servantCoords, cellMouse))
-                    {
-                        selectedServant.handleClicOnSpecialTile(wt);
-                    }
-                    else
-                    {
-                        // FIXME will not work since pathfinding cannot get you to an obstacle tile
-                        this.selectedServant.SetTarget(cellMouse);
-                    }
+                    handled = DetectClickOnSpecialTile();
                 }
-                else
+                if (!handled)
                 {
+                    Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                     this.selectedServant.SetTarget(cellMouse);
                 }
             }
         }
 
         UpdateGauge();
+    }
+
+    private bool DetectClickOnNoble()
+    {
+        // raycast to find collider under mouse
+        RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (rayhit.collider != null)
+        {
+            var noble = rayhit.collider.gameObject.GetComponent<Noble>();
+            if (noble != null)
+            {
+                if ((noble.transform.position - selectedServant.transform.position).magnitude < 1.5f)
+                {
+                    selectedServant.InteractWithNoble();
+                }
+                else
+                {
+                    // TODO move close to him
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool DetectClickOnSpecialTile()
+    {
+        // handle clics on special tiles
+        Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var tileClicked = GameController.INSTANCE.tilemap.GetTile(cellMouse);
+        Vector3Int servantCoords = GameController.INSTANCE.tilemap.WorldToCell(selectedServant.transform.position);
+
+        if (tileClicked != null && tileClicked.GetType() == typeof(WorldTile))
+        {
+            WorldTile wt = tileClicked as WorldTile;
+            // Si mon perso est à côté du puits ou autre
+            if (isServantCloseToTile(servantCoords, cellMouse))
+            {
+                selectedServant.handleClicOnSpecialTile(wt);
+            }
+            return true;
+        }
+
+        return false;
     }
 
     private void UpdateGauge()

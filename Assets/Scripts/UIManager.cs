@@ -61,13 +61,4 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateCurrentServant (Servant s) {
-        this.currentServant = s;
-        Debug.Log("Servent selectionned.");
-    }
-
-    public void ExecuteAction(Resources interactiveObject) {
-        //TODO fix 
-        //this.currentServant.ExecuteAction(interactiveObject);
-    }
 }

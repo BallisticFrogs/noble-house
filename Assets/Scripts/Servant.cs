@@ -13,7 +13,7 @@ public class Servant : Character
     }
 
     // Update is called once per frame
-    new void Update()
+    void Update()
     {
         base.Update();
         if (Input.GetMouseButtonUp(0))

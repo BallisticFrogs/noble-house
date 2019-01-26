@@ -9,17 +9,15 @@ public class GameController : MonoBehaviour
 {
     public static GameController INSTANCE;
 
-    public GameObject Grid;
     public Tilemap tilemap;
     public PathNode[,] PathfindingMap;
 
-    public SpatialAStar<PathNode, Character> aStar;
+    public Pathfinder<PathNode, Character> aStar;
 
     // Start is called before the first frame update
     void Awake()
     {
         INSTANCE = this;
-        tilemap = Grid.GetComponent<Tilemap>();
 
         BoundsInt bounds = tilemap.cellBounds;
         // Debug.Log("bounds.x = " + bounds.x);
@@ -58,7 +56,7 @@ public class GameController : MonoBehaviour
             }
         }
 
-        aStar = new SpatialAStar<PathNode, Character>(PathfindingMap);
+        aStar = new Pathfinder<PathNode, Character>(PathfindingMap);
     }
 
     public LinkedList<PathNode> getPath(int x, int y, int targetX, int targetY)

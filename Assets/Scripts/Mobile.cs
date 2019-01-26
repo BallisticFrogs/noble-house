@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Mobile : MonoBehaviour
 {
+    private float threshold = 0.1f;
+
     public Vector3Int target;
 
     public Vector3Int waypointCellCoords;
@@ -22,18 +24,19 @@ public class Mobile : MonoBehaviour
             target = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
         }
 
-        float threshold = 0.1f;
         Vector3 waypointWorldCoords = GameController.INSTANCE.tilemap.GetCellCenterWorld(waypointCellCoords);
         Vector3Int cellCoords = GameController.INSTANCE.tilemap.WorldToCell(transform.position);
-        if ((waypointWorldCoords - transform.position).magnitude < threshold)
-        {
-            findNextWaypointToTarget(cellCoords);
-        }
-        else if (cellCoords != target)
+        if (waypointCellCoords != target && (waypointWorldCoords - transform.position).magnitude < threshold)
         {
             findNextWaypointToTarget(cellCoords);
         }
 
+        Move();
+    }
+
+    private void Move()
+    {
+        Vector3 waypointWorldCoords = GameController.INSTANCE.tilemap.GetCellCenterWorld(waypointCellCoords);
         Vector3 dist = waypointWorldCoords - transform.position;
         if (dist.magnitude >= threshold * 0.1f)
         {
@@ -44,7 +47,7 @@ public class Mobile : MonoBehaviour
 
     private void findNextWaypointToTarget(Vector3Int currentCellCoords)
     {
-        Debug.Log("Starting to pathfind...");
+        // Debug.Log("Starting to pathfind...");
         var cellBounds = GameController.INSTANCE.tilemap.cellBounds;
         LinkedList<PathNode> path = GameController.INSTANCE.getPath(currentCellCoords.x - cellBounds.x, currentCellCoords.y - cellBounds.y,
             target.x - cellBounds.x, target.y - cellBounds.y);
@@ -53,14 +56,13 @@ public class Mobile : MonoBehaviour
         {
             PathNode waypointNode = path.First.Next.Value;
             waypointCellCoords = new Vector3Int(waypointNode.X + cellBounds.x, waypointNode.Y + cellBounds.y, 0);
-            Debug.Log("found path : " + waypointNode.X + "-" + waypointNode.Y);
+            // Debug.Log("found path : " + waypointNode.X + "-" + waypointNode.Y);
         }
-        else
-         if (path != null && path.Count > 0)
+        else if (path != null && path.Count > 0)
         {
             PathNode waypointNode = path.First.Value;
             waypointCellCoords = new Vector3Int(waypointNode.X + cellBounds.x, waypointNode.Y + cellBounds.y, 0);
-            Debug.Log("found path : " + waypointNode.X + "-" + waypointNode.Y);
+            // Debug.Log("found path : " + waypointNode.X + "-" + waypointNode.Y);
         }
     }
 

@@ -66,9 +66,9 @@ public class UIManager : MonoBehaviour
         switch(wish) 
         {
             case WishEnum.HUNGRY:
-            return "I'm hungy!";
-            case WishEnum.HUNT:
-            return "I want to hunt!";
+            return "I'm hungry!";
+            case WishEnum.THIRSTY:
+            return "I'm thirsty!";
             case WishEnum.STROLL:
             return "I want to go walking!";
             default :

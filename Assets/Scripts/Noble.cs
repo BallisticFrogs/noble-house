@@ -6,16 +6,20 @@ public class Noble : Character
 {
     
     private WishEnum currentWish;
-    private float currentWishTime; // Time the Noble has been waiting for the completion of the task
+    private float currentWishTimeCompletion; // Time the Noble has been waiting for the completion of the task
+    private float delayBeforeNewTask;
 
     public GameObject wishGameObject;
     public Sprite wishHunt;
     public Sprite wishHungry;
 
+    public WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.THIRSTY };
+    public int minDelayBeforeNewTask = 10;
+    public int maxDelayBeforeNewTask = 20;
+
     public override void Start() {
         base.Start();
-        InitWish();
-        currentWishTime = 0;
+        InitNoble();
     }
     
     public override void Update()
@@ -24,25 +28,28 @@ public class Noble : Character
         
         //TODO asking for servant²
         if (currentWish == WishEnum.WAIT) {
-            // Pick a task
-            WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.HUNT };
-            currentWish = availableWishes[(int) Random.Range(0, availableWishes.Length)];
-            UIManager.INSTANCE.AddTask(currentWish);
-            switch (currentWish) {
-                case WishEnum.HUNGRY: 
-                    Debug.Log("Current wish hungry");
-                    wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
-                break;
-                case WishEnum.HUNT:
-                Debug.Log("Current wish hunt");
-                    wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHunt;
-                break;
+            if (delayBeforeNewTask  > 0) {
+                delayBeforeNewTask -= Time.deltaTime;
+            } else {
+                // Pick a task
+                currentWish = availableWishes[(int) Random.Range(0, availableWishes.Length)];
+                UIManager.INSTANCE.AddTask(currentWish);
+                switch (currentWish) {
+                    case WishEnum.HUNGRY: 
+                        Debug.Log("Current wish: hungry");
+                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
+                    break;
+                    case WishEnum.THIRSTY:
+                    Debug.Log("Current wish: thirsty");
+                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHunt;
+                    break;
+                }
             }
             
         } else {
             // Increase the number of frames the noble is currently waiting for 
-            currentWishTime += Time.deltaTime;
-            if (WishExpired(currentWishTime)){
+            currentWishTimeCompletion += Time.deltaTime;
+            if (WishExpired(currentWishTimeCompletion)){
                 GameOverManager.INSTANCE.GameOverDefeat();
             }
         }
@@ -57,22 +64,21 @@ public class Noble : Character
     }
 
     void FulfillWish (){
-        if (!WishExpired(currentWishTime)) {
-            currentWish = WishEnum.WAIT;
-            currentWishTime = 0;
-            GameOverManager.INSTANCE.GameOverVictory();
+        if (!WishExpired(currentWishTimeCompletion)) {
+            InitNoble();
+            // GameOverManager.INSTANCE.GameOverVictory();
         }
     }
 
     bool WishExpired(float elapsedTime) {
         switch (currentWish){
             case WishEnum.HUNGRY:
-                if (currentWishTime > 60) {
+                if (currentWishTimeCompletion > 120) {
                     return true;
                 } 
                 break;
-            case WishEnum.HUNT:
-                if (currentWishTime > 120) {
+            case WishEnum.THIRSTY:
+                if (currentWishTimeCompletion > 60) {
                     return true;
                 }
                 break;
@@ -80,8 +86,9 @@ public class Noble : Character
         return false;
     }
 
-    void InitWish() {
+    void InitNoble() {
         currentWish = WishEnum.WAIT;
-        currentWishTime = 0;
+        currentWishTimeCompletion = 0;
+        delayBeforeNewTask = Random.Range(minDelayBeforeNewTask, maxDelayBeforeNewTask);
     }
 }

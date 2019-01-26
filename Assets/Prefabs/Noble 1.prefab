@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b6294febc354a47a1c404985e25fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {x: 0, y: 0, z: 0}
-  waypointCellCoords: {x: 0, y: 0, z: 0}
+  speed: 0.05
+  objectInHand: 0
   wishGameObject: {fileID: 2361789744639111807}
   wishHunt: {fileID: 0}
   wishHungry: {fileID: 0}
@@ -123,7 +123,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.28, y: 2.82}
+  m_Size: {x: 0.86, y: 1.93}
   m_EdgeRadius: 0
 --- !u!1 &2361789744639111807
 GameObject:

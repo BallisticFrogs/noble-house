@@ -70,27 +70,28 @@ public class GameController : MonoBehaviour
         // handle servant selection/deselection
         if (Input.GetMouseButtonDown(0))
         {
+            if (selectedServant != null)
+            {
+                selectedServant.GetComponent<SpriteRenderer>().color = UnityEngine.Color.white;
+            }
+
             // raycast to find collider under mouse
             RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (rayhit.collider != null)
             {
                 var servant = rayhit.collider.gameObject.GetComponent<Servant>();
-                this.selectedServant = servant;
+                selectedServant = servant;
                 servant.GetComponent<SpriteRenderer>().color = SELECTEC_COLOR;
             }
             else
             {
-                if (selectedServant != null)
-                {
-                    selectedServant.GetComponent<SpriteRenderer>().color = UnityEngine.Color.white;
-                    selectedServant = null;
-                }
+                selectedServant = null;
             }
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            if (this.selectedServant != null)
+            if (selectedServant != null)
             {
                 // handle clics on special tiles
                 Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));

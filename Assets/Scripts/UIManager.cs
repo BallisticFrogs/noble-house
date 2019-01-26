@@ -35,17 +35,31 @@ public class UIManager : MonoBehaviour
     }
 
     // 9 tasks only. Return false if tasklist full
-    public bool AddTask(string taskName) {
+    public bool AddTask(WishEnum wish) {
         for (int i = 0 ; i < TASK_LIST_SIZE; i ++) {
             if (!tasksList[i].activeSelf) {
                 tasksList[i].SetActive(true);
                 Text taskText = tasksList[i].GetComponent<Text>();
-                taskText.text = taskName;
+                taskText.text = GetTextFromWish(wish);
                 // Do not continue.
                 return true;
             }
         }
         return false;
+    }
+
+    private string GetTextFromWish(WishEnum wish){
+        switch(wish) 
+        {
+            case WishEnum.HUNGRY:
+            return "I'm hungy!";
+            case WishEnum.HUNT:
+            return "I want to hung!";
+            case WishEnum.STROLL:
+            return "I want to go walking!";
+            default :
+            return null;
+        }
     }
 
     public void UpdateCurrentServant (Servant s) {

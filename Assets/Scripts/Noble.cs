@@ -31,6 +31,10 @@ public class Noble : Character
 
     void UpdateWish(WishEnum wish) {
         currentWish = wish;
+        //Do not add task if noble is idling.
+        if (WishEnum.WAIT != wish ) {
+            UIManager.INSTANCE.AddTask(currentWish);
+        }      
     }
 
     void FulfillWish (){

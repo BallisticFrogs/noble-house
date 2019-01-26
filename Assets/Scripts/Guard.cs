@@ -15,13 +15,13 @@ public class Guard : Character
     private Vector3Int postingCellCoords;
     public Servant currentTarget;
 
-    void Start()
+    public override void Start()
     {
         base.Start();
         postingCellCoords = target;
     }
 
-    void Update()
+    public override void Update()
     {
         base.Update();
 

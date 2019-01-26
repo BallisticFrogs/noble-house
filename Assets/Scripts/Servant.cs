@@ -14,14 +14,15 @@ public class Servant : Character
     public GameObject progressBarBack;
     public GameObject progressBar;
 
-    void Start()
+    public override void Start()
     {
         base.Start();
     }
 
-    void Update()
+    public override void Update()
     {
         base.Update();
+
         if (longTask != null)
         {
             float progress = 1 - (longTask.timer / longTask.totalTime);
@@ -95,7 +96,7 @@ public class Servant : Character
         }
     }
 
-    public void SetTarget(Vector3Int newTarget)
+    public override void SetTarget(Vector3Int newTarget)
     {
         base.SetTarget(newTarget);
         var previousObjectToReactivate = new GameObject();

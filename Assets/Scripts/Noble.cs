@@ -12,13 +12,16 @@ public class Noble : Character
     public Sprite wishHunt;
     public Sprite wishHungry;
 
-    void Start() {
+    public override void Start() {
+        base.Start();
         InitWish();
         currentWishTime = 0;
     }
-    // Update is called once per frame
-    void Update()
+    
+    public override void Update()
     {
+        base.Update();
+        
         //TODO asking for servant²
         if (currentWish == WishEnum.WAIT) {
             // Pick a task

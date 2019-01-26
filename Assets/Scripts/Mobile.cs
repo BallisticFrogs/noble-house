@@ -62,7 +62,7 @@ public class Mobile : MonoBehaviour
         }
     }
 
-    public void SetTarget(Vector3Int newTarget)
+    public virtual void SetTarget(Vector3Int newTarget)
     {
         this.target = newTarget;
     }

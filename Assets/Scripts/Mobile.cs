@@ -11,10 +11,10 @@ public class Mobile : MonoBehaviour
 
     private Vector3Int waypointCellCoords;
 
-    void Start()
+    public void Start()
     {
-        Vector3Int cellCoords = GameController.INSTANCE.tilemap.WorldToCell(transform.position);
-        findNextWaypointToTarget(cellCoords);
+        target = GameController.INSTANCE.tilemap.WorldToCell(transform.position);
+        waypointCellCoords = target;
     }
 
     public void Update()

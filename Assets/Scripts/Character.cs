@@ -1,5 +1,5 @@
 
 public class Character : Mobile
 {
-    public HoldableObject characObject;
+    public HoldableObject objectInHand;
 }

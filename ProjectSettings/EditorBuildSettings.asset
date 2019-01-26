@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/GTI.unity
+    guid: 084b634dc3ac25c4fac3d299db3c7982
   m_configObjects: {}

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
@@ -64,9 +65,10 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-
+        // handle servant selection/deselection
         if (Input.GetMouseButtonDown(0))
         {
+            // raycast to find collider under mouse
             RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (rayhit.collider != null)
             {
@@ -83,15 +85,40 @@ public class GameController : MonoBehaviour
         {
             if (this.selectedServant != null)
             {
-                // TODO handle clics on special tiles
-                var target = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                this.selectedServant.SetTarget(target);
+                // handle clics on special tiles
+                Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                var tileClicked = GameController.INSTANCE.tilemap.GetTile(cellMouse);
+                Vector3Int servantCoords = GameController.INSTANCE.tilemap.WorldToCell(selectedServant.transform.position);
+
+                if (tileClicked != null && tileClicked.GetType() == typeof(WorldTile))
+                {
+                    WorldTile wt = tileClicked as WorldTile;
+                    // Si mon perso est à côté du puits ou autre
+                    if (isServantCloseToTile(servantCoords, cellMouse))
+                    {
+                        selectedServant.handleClicOnSpecialTile(wt);
+                    }
+                    else
+                    {
+                        // FIXME will not work since pathfinding cannot get you to an obstacle tile
+                        this.selectedServant.SetTarget(cellMouse);
+                    }
+                }
+                else
+                {
+                    this.selectedServant.SetTarget(cellMouse);
+                }
             }
         }
     }
 
-    public void ExecuteAction(GameObject interactiveTile)
+    private bool isServantCloseToTile(Vector3Int servantCoords, Vector3Int cellMouse)
     {
-        this.selectedServant.ExecuteAction(interactiveTile);
+        if (Math.Abs(servantCoords.x - cellMouse.x) < 1.5 && Math.Abs(servantCoords.y - cellMouse.y) < 1.5)
+        {
+            return true;
+        }
+        return false;
     }
+
 }

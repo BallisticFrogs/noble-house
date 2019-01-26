@@ -50,22 +50,24 @@ public class Servant : Character
         {
             case TileType.WELL:
                 longTask = new LongTask(waterBucket, HoldableObject.WATER_BUCKET, UnityEngine.Random.Range(2, 4.0f));
+                deactivateAllSprites();
                 progressBarBack.SetActive(true);
                 break;
             case TileType.LARDER:
                 longTask = new LongTask(chicken, HoldableObject.CHICKEN, UnityEngine.Random.Range(2, 3.0f));
+                deactivateAllSprites();
                 progressBarBack.SetActive(true);
                 break;
             case TileType.KITCHEN:
                 switch (this.objectInHand)
                 {
                     case HoldableObject.WATER_BUCKET:
-                        waterBucket.SetActive(false);
+                        deactivateAllSprites();
                         longTask = new LongTask(teaPot, HoldableObject.TEA_POT, UnityEngine.Random.Range(2, 5.0f));
                         progressBarBack.SetActive(true);
                         break;
                     case HoldableObject.CHICKEN:
-                        chicken.SetActive(false);
+                        deactivateAllSprites();
                         longTask = new LongTask(cookedChicken, HoldableObject.COOKED_CHICKEN, UnityEngine.Random.Range(2, 5.0f));
                         progressBarBack.SetActive(true);
                         break;
@@ -76,15 +78,31 @@ public class Servant : Character
                 {
                     case HoldableObject.TEA_POT:
                         this.objectInHand = HoldableObject.NONE;
-                        teaPot.SetActive(false);
+                        deactivateAllSprites();
                         break;
                     case HoldableObject.COOKED_CHICKEN:
                         this.objectInHand = HoldableObject.NONE;
-                        cookedChicken.SetActive(false);
+                        deactivateAllSprites();
                         break;
                 }
                 break;
         }
+    }
+
+    public void deactivateAllSprites()
+    {
+        for (int sprite = 0; sprite < transform.childCount; sprite++)
+        {
+            transform.GetChild(sprite).gameObject.SetActive(false);
+        }
+    }
+
+    public void SetTarget(Vector3Int newTarget)
+    {
+        base.SetTarget(newTarget);
+        longTask = null;
+        progressBarBack.SetActive(false);
+        progressBar.SetActive(false);
     }
 
 }

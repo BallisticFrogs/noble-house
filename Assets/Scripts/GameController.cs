@@ -65,6 +65,7 @@ public class GameController : MonoBehaviour
         return path;
     }
 
+
     void Update()
     {
         // handle servant selection/deselection
@@ -118,8 +119,17 @@ public class GameController : MonoBehaviour
                 }
             }
         }
+        
+        UpdateGauge();
     }
 
+    private void UpdateGauge() {
+        UIManager ui = UIManager.INSTANCE;
+        ui.happynessLevel = UnityEngine.Random.Range(0, ui.happynessMax);
+        ui.angrynessLevel = UnityEngine.Random.Range(0, ui.angrynessMax);
+        ui.otherLevel = UnityEngine.Random.Range(0, ui.otherMax);
+
+    }
     private bool isServantCloseToTile(Vector3Int servantCoords, Vector3Int cellMouse)
     {
         if (Math.Abs(servantCoords.x - cellMouse.x) < 1.5 && Math.Abs(servantCoords.y - cellMouse.y) < 1.5)

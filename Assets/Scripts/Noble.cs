@@ -59,7 +59,9 @@ public class Noble : Character
             // Increase the number of frames the noble is currently waiting for 
             currentWishTimeCompletion += Time.deltaTime;
             if (WishExpired(currentWishTimeCompletion)){
-                GameOverManager.INSTANCE.GameOverDefeat();
+                GameController.INSTANCE.FailedActiveTask(this);
+                // See later for deafeat condition
+                // GameOverManager.INSTANCE.GameOverDefeat();
             }
         }
     }
@@ -75,6 +77,7 @@ public class Noble : Character
     void FulfillWish (){
         if (!WishExpired(currentWishTimeCompletion)) {
             InitNoble();
+            GameController.INSTANCE.CompleteActiveTask(this);
             // GameOverManager.INSTANCE.GameOverVictory();
         }
     }

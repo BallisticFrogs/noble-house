@@ -27,17 +27,26 @@ public class AngryCrowdManager : MonoBehaviour
 
     public void addPeasant() {
         if (inactivePeasantCounter > 0 ) {
-            Transform transformChild = findRandomChild();
+            // Look for inactive peasant
+            Transform transformChild = findRandomChild(false);
+            transformChild.gameObject.SetActive(true);
         }
     }
 
-    private Transform findRandomChild(){
+    public void RemovePeasant() {
+        if ( inactivePeasantCounter <= 0 ) {
+            Transform transformChild = findRandomChild(true);
+            transformChild.gameObject.SetActive(false);
+        }
+    }
+
+    private Transform findRandomChild(bool active){
         Transform transformChild = transform.GetChild(Random.Range(0, transform.childCount-1));
-        if (!transformChild.gameObject.activeSelf) {
+        if (active == transformChild.gameObject.activeSelf) {
             inactivePeasantCounter --;
             return transformChild;
         } else {
-            return findRandomChild();
+            return findRandomChild(active);
         }
     }
 

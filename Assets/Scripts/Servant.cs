@@ -11,6 +11,8 @@ public class Servant : Character
     public GameObject teaPot;
     public GameObject chicken;
     public GameObject cookedChicken;
+    public GameObject progressBarBack;
+    public GameObject progressBar;
 
     // Start is called before the first frame update
     void Start()
@@ -22,37 +24,50 @@ public class Servant : Character
     void Update()
     {
         base.Update();
+        if (longTask != null)
+        {
+            float progress = 1 - (longTask.timer / longTask.totalTime);
+            progressBar.SetActive(true);
+            progressBar.transform.localScale = new Vector3(progress, 0.79f, 1);
+
+            longTask.timer -= Time.deltaTime;
+            if (longTask.timer <= 0)
+            {
+                progressBarBack.SetActive(false);
+                progressBar.SetActive(false);
+
+                objectInHand = longTask.objectInProgress;
+                longTask.objectInProgress = HoldableObject.NONE;
+                longTask.gameObjectToActivate.SetActive(true);
+                longTask = null;
+            }
+        }
     }
 
     public void handleClicOnSpecialTile(WorldTile wt)
     {
-        Debug.Log(wt);
         switch (wt.tileType)
         {
             case TileType.WELL:
-                Debug.Log("PF: Le serviteur prend l'eau");
-                this.objectInHand = HoldableObject.WATER_BUCKET;
-                waterBucket.SetActive(true);
+                longTask = new LongTask(waterBucket, HoldableObject.WATER_BUCKET, UnityEngine.Random.Range(2, 4.0f));
+                progressBarBack.SetActive(true);
                 break;
             case TileType.LARDER:
-                Debug.Log("PF: Le serviteur prend le poulet");
-                this.objectInHand = HoldableObject.CHICKEN;
-                chicken.SetActive(true);
+                longTask = new LongTask(chicken, HoldableObject.CHICKEN, UnityEngine.Random.Range(2, 3.0f));
+                progressBarBack.SetActive(true);
                 break;
             case TileType.KITCHEN:
                 switch (this.objectInHand)
                 {
                     case HoldableObject.WATER_BUCKET:
-                        Debug.Log("PF: Le serviteur dépose l'eau et prend le thé");
-                        this.objectInHand = HoldableObject.TEA_POT;
                         waterBucket.SetActive(false);
-                        teaPot.SetActive(true);
+                        longTask = new LongTask(teaPot, HoldableObject.TEA_POT, UnityEngine.Random.Range(2, 5.0f));
+                        progressBarBack.SetActive(true);
                         break;
                     case HoldableObject.CHICKEN:
-                        Debug.Log("PF: Le serviteur dépose le poulet et le fait cuire");
-                        this.objectInHand = HoldableObject.COOKED_CHICKEN;
                         chicken.SetActive(false);
-                        cookedChicken.SetActive(true);
+                        longTask = new LongTask(cookedChicken, HoldableObject.COOKED_CHICKEN, UnityEngine.Random.Range(2, 5.0f));
+                        progressBarBack.SetActive(true);
                         break;
                 }
                 break;
@@ -60,12 +75,10 @@ public class Servant : Character
                 switch (this.objectInHand)
                 {
                     case HoldableObject.TEA_POT:
-                        Debug.Log("PF: Le serviteur dépose le thé");
                         this.objectInHand = HoldableObject.NONE;
                         teaPot.SetActive(false);
                         break;
                     case HoldableObject.COOKED_CHICKEN:
-                        Debug.Log("PF: Le serviteur donne le poulet cuit");
                         this.objectInHand = HoldableObject.NONE;
                         cookedChicken.SetActive(false);
                         break;

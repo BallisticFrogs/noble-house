@@ -24,6 +24,7 @@ public class Noble : Character
             // Pick a task
             WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.HUNT };
             currentWish = availableWishes[(int) Random.Range(0, availableWishes.Length)];
+            UIManager.INSTANCE.AddTask(currentWish);
             switch (currentWish) {
                 case WishEnum.HUNGRY: 
                     Debug.Log("Current wish hungry");

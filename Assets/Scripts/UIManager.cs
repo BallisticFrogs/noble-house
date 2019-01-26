@@ -33,7 +33,9 @@ public class UIManager : MonoBehaviour
     {
         tasksList = new GameObject[TASK_LIST_SIZE];
         for (int i = 0 ; i < TASK_LIST_SIZE ; i++ ) {
-            tasksList[i] = GameObject.Find("Task"+i);
+            string task = "Task"+i;
+            tasksList[i] = GameObject.Find(task);
+            Debug.Log(task + " "+ tasksList[i]);
         }
         happynessSlider = GameObject.Find("Happiness").GetComponent<Slider>();
         angrynessSlider = GameObject.Find("Angriness").GetComponent<Slider>();
@@ -48,16 +50,14 @@ public class UIManager : MonoBehaviour
         otherSlider.value = otherLevel;
     }
 
-    // 9 tasks only. Return false if tasklist full
+    // 9 displayed tasks only. Return false if tasklist full
     public bool AddTask(WishEnum wish) {
         for (int i = 0 ; i < TASK_LIST_SIZE; i ++) {
-            if (!tasksList[i].activeSelf) {
-                tasksList[i].SetActive(true);
-                Text taskText = tasksList[i].GetComponent<Text>();
-                taskText.text = GetTextFromWish(wish);
-                // Do not continue.
-                return true;
-            }   
+            Debug.Log("i:" + i);
+            Text taskText = tasksList[i].GetComponent<Text>();
+            taskText.text = GetTextFromWish(wish);
+            // Do not continue.
+            return true;
         }
         return false;
     }
@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
             case WishEnum.HUNGRY:
             return "I'm hungy!";
             case WishEnum.HUNT:
-            return "I want to hung!";
+            return "I want to hunt!";
             case WishEnum.STROLL:
             return "I want to go walking!";
             default :

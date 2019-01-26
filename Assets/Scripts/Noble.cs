@@ -6,7 +6,11 @@ public class Noble : Character
 {
     
     private WishEnum currentWish;
-    private float currentWishTime; // Number of frames the Noble is waiting for the completion of his task
+    private float currentWishTime; // Time the Noble has been waiting for the completion of the task
+
+    public GameObject wishGameObject;
+    public Sprite wishHunt;
+    public Sprite wishHungry;
 
     void Start() {
         InitWish();
@@ -20,6 +24,17 @@ public class Noble : Character
             // Pick a task
             WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.HUNT };
             currentWish = availableWishes[(int) Random.Range(0, availableWishes.Length)];
+            switch (currentWish) {
+                case WishEnum.HUNGRY: 
+                    Debug.Log("Current wish hungry");
+                    wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
+                break;
+                case WishEnum.HUNT:
+                Debug.Log("Current wish hunt");
+                    wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHunt;
+                break;
+            }
+            
         } else {
             // Increase the number of frames the noble is currently waiting for 
             currentWishTime += Time.deltaTime;

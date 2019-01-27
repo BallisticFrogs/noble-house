@@ -13,6 +13,18 @@ public class SoundManager : MonoBehaviour
     public AudioClip bgB;
     private AudioClip currentBgAudio;
 
+    public AudioClip soundTeaSlurp;
+    public AudioClip soundFillBucket;
+    public AudioClip soundSword;
+    public AudioClip soundDeath;
+    public AudioClip soundCook;
+    public AudioClip soundAngry;
+    public AudioClip soundSelect;
+    public AudioClip soundAngryCrowd;
+    public AudioClip soundHorse;
+    public AudioClip soundHappy;
+    public AudioClip soundBarrel;
+
     private void Awake(){
         INSTANCE = this;
     }

@@ -49,6 +49,17 @@ MonoBehaviour:
   fxSource: {fileID: 1286149652437340562}
   bgA: {fileID: 8300000, guid: 7ee6a467ca67e814a9166c21793eee6c, type: 3}
   bgB: {fileID: 8300000, guid: 966a4ce877e5b84428e309b6139bb210, type: 3}
+  soundTeaSlurp: {fileID: 8300000, guid: 2fd91cb813a8dfb46948ca16cf75ffd7, type: 3}
+  soundFillBucket: {fileID: 8300000, guid: 9dbda1c72047d3d46a19a8b3c398a566, type: 3}
+  soundSword: {fileID: 8300000, guid: 8e49dc6d9c4251c41a9de6944738c590, type: 3}
+  soundDeath: {fileID: 8300000, guid: f93e068008d076a4696e5b7c9bb28fbb, type: 3}
+  soundCook: {fileID: 8300000, guid: 6ccd90e583c316546abefbc0e8fb34cd, type: 3}
+  soundAngry: {fileID: 8300000, guid: 3546d53ae45f3c7419b8cab66df3cd53, type: 3}
+  soundSelect: {fileID: 8300000, guid: fcf2f9f9bc1dbb94fbe9c00a7c80aebe, type: 3}
+  soundAngryCrowd: {fileID: 8300000, guid: 6dbde5bf0f1c397429c17eefd4cb2dd9, type: 3}
+  soundHorse: {fileID: 8300000, guid: 028d423eadb1e824a87e158e78ed0a86, type: 3}
+  soundHappy: {fileID: 8300000, guid: 7b5bd251efcad624183fc0bf2eaf9311, type: 3}
+  soundBarrel: {fileID: 8300000, guid: a00ca3adef6416140b1b2589ea2c4cb7, type: 3}
 --- !u!1 &1286149652293799018
 GameObject:
   m_ObjectHideFlags: 0

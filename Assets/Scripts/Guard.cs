@@ -12,6 +12,7 @@ public class Guard : Fighter
 
     private Vector3Int postingCellCoords;
 
+    public AudioSource fx;
 
     public override void Start()
     {
@@ -19,6 +20,7 @@ public class Guard : Fighter
 
         // save guarded position
         postingCellCoords = target;
+        fx = GetComponent<AudioSource>();
     }
 
     public override void Update()
@@ -123,6 +125,11 @@ public class Guard : Fighter
     public void Corrupt()
     {
         timeBeforeCorrupted = GameController.INSTANCE.guardCorruptionDelay;
+
+    }
+    
+    public void PlayFx(AudioClip clip) {
+        fx.PlayOneShot(clip);
     }
 
 }

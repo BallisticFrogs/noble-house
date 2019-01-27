@@ -20,9 +20,12 @@ public class Servant : Character
     [HideInInspector]
     public GameObject previousObjectToReactivate;
 
+    public AudioSource fx;
+
     public override void Start()
     {
         base.Start();
+        fx = GetComponent<AudioSource>();
     }
 
     public override void Update()
@@ -57,11 +60,13 @@ public class Servant : Character
                 longTask = new LongTask(waterBucket, HoldableObject.WATER_BUCKET, UnityEngine.Random.Range(2.0f, 4.0f));
                 DeactivateAllSprites();
                 progressBarBack.SetActive(true);
+                PlayFx(SoundManager.INSTANCE.soundFillBucket);
                 break;
             case TileType.LARDER:
                 longTask = new LongTask(chicken, HoldableObject.CHICKEN, UnityEngine.Random.Range(1.5f, 3.0f));
                 DeactivateAllSprites();
                 progressBarBack.SetActive(true);
+                PlayFx(SoundManager.INSTANCE.soundBarrel);
                 break;
             case TileType.KITCHEN:
                 switch (objectInHand)
@@ -70,11 +75,13 @@ public class Servant : Character
                         DeactivateAllSprites();
                         longTask = new LongTask(waterBucket, teaPot, HoldableObject.TEA_POT, UnityEngine.Random.Range(2.0f, 5.0f));
                         progressBarBack.SetActive(true);
+                        PlayFx(SoundManager.INSTANCE.soundFillBucket);
                         break;
                     case HoldableObject.CHICKEN:
                         DeactivateAllSprites();
                         longTask = new LongTask(chicken, cookedChicken, HoldableObject.COOKED_CHICKEN, UnityEngine.Random.Range(2.0f, 5.0f));
                         progressBarBack.SetActive(true);
+                        PlayFx(SoundManager.INSTANCE.soundCook);
                         break;
                 }
                 break;
@@ -105,6 +112,7 @@ public class Servant : Character
                         objectInHand = HoldableObject.NONE;
                         objectOwner.FulfillWish();
                         DeactivateAllSprites();
+                        PlayFx(SoundManager.INSTANCE.soundHorse);
                         break;
                 }
                 break;
@@ -170,6 +178,7 @@ public class Servant : Character
         }
     }
 
+
     public void InteractWithguard(Guard guard)
     {
         if (objectInHand == HoldableObject.COOKED_CHICKEN)
@@ -189,4 +198,8 @@ public class Servant : Character
         }
     }
 
+    public void PlayFx(AudioClip clip) {
+        fx.Stop();
+        fx.PlayOneShot(clip);
+    }
 }

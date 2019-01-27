@@ -120,6 +120,7 @@ public class GameController : MonoBehaviour
                 {
                     selectedServant = servant;
                     servant.GetComponent<SpriteRenderer>().color = SELECTEC_COLOR;
+                    servant.PlayFx(SoundManager.INSTANCE.soundSelect);
                 }
             }
         }
@@ -224,12 +225,14 @@ public class GameController : MonoBehaviour
     {
         AngryCrowdManager.INSTANCE.addPeasants();
         Debug.Log("Task fullfilled!");
-    }
+        noble.PlayFx(SoundManager.INSTANCE.soundTeaSlurp);
+    } 
 
     public void FailedActiveTask(Noble noble)
     {
         noble.OrderToKillClosestServant();
         Debug.Log("Task failed!");
+        noble.PlayFx(SoundManager.INSTANCE.soundAngry);
     }
 
     public Vector3Int GetAgonizingMoveTarget(Character character)

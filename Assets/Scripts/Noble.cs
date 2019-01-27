@@ -29,10 +29,13 @@ public class Noble : Character
 
     public int crossBlinkDelay = 2;
 
+    public AudioSource fx;
+
     public override void Start()
     {
         base.Start();
         InitNoble();
+        fx = GetComponent<AudioSource>();
     }
 
     public override void Update()
@@ -141,6 +144,7 @@ public class Noble : Character
         if (hitCount == 2 || hitCount == 4)
         {
             OrderToKillSpecificServant(poisonMurderer);
+            PlayFx(SoundManager.INSTANCE.soundDeath);
         }
     }
 
@@ -225,5 +229,10 @@ public class Noble : Character
                 crossGameObject.SetActive(false);
             }
         }
+    }
+
+    public void PlayFx(AudioClip clip) {
+        fx.Stop();
+        fx.PlayOneShot(clip);
     }
 }

@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
 
     public UnityEngine.Color SELECTEC_COLOR = new UnityEngine.Color(0, 1, 0);
 
+    [HideInInspector]
     public Tilemap tilemap;
 
     public PathNode[,] PathfindingMap;
@@ -29,6 +30,12 @@ public class GameController : MonoBehaviour
 
     private void InitPathfinding()
     {
+        tilemap = GameObject.FindGameObjectWithTag("TilemapObstacles").GetComponent<Tilemap>();
+        if (tilemap == null)
+        {
+            Debug.LogError("No game object found with tag 'TilemapObstacles'");
+        }
+
         BoundsInt bounds = tilemap.cellBounds;
         TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
 

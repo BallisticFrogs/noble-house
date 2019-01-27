@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3897949464346376185}
   m_Layer: 0
   m_Name: Servant 1
-  m_TagString: Untagged
+  m_TagString: Servant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   cookedChicken: {fileID: 4198343183783013692}
   progressBarBack: {fileID: 4289973986281251296}
   progressBar: {fileID: 7608078365428467214}
+  previousObjectToReactivate: {fileID: 0}
 --- !u!61 &3897949464346376185
 BoxCollider2D:
   m_ObjectHideFlags: 0

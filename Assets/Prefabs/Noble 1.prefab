@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 549216967192017539}
   m_Layer: 0
   m_Name: Noble 1
-  m_TagString: Untagged
+  m_TagString: Noble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  life: 100
   objectInHand: 0
+  currentWish: 0
   wishGameObject: {fileID: 2361789744639111807}
   bubbleGameObject: {fileID: 7525968555264995214}
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}

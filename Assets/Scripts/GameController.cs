@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
 
         // check win condition
         GameObject[] nobles = GameObject.FindGameObjectsWithTag(Tags.NOBLE);
-        if ((nobles == null || nobles.Length == 0) && !gameOver)
+        if (!AngryCrowdManager.INSTANCE.rampaging && (nobles == null || nobles.Length == 0) && !gameOver)
         {
             gameOver = true;
             GameOverManager.INSTANCE.GameOverVictory();

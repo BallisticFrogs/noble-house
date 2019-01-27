@@ -5,47 +5,53 @@ using UnityEngine;
 public class AngryCrowdManager : MonoBehaviour
 {
     public static AngryCrowdManager INSTANCE;
-    // Start is called before the first frame update
+    
     private int inactivePeasantCounter;
-    void Start()
-    {
-        INSTANCE = this;
-    }
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
+    public bool rampaging;
+
+    public Transform peasantsStagingArea;
+
     void Awake()
     {
-        inactivePeasantCounter = transform.childCount;
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
+        INSTANCE = this;
+        peasantsStagingArea = GameObject.FindGameObjectWithTag(Tags.PEASANTS_STAGING_AREA).transform;
     }
 
-    public void addPeasant() {
-        if (inactivePeasantCounter > 0 ) {
+    void Update()
+    {
+
+    }
+
+    public void addPeasant()
+    {
+        if (inactivePeasantCounter > 0)
+        {
             // Look for inactive peasant
             Transform transformChild = findRandomChild(false);
             transformChild.gameObject.SetActive(true);
         }
     }
 
-    public void RemovePeasant() {
-        if ( inactivePeasantCounter <= 0 ) {
+    public void RemovePeasant()
+    {
+        if (inactivePeasantCounter <= 0)
+        {
             Transform transformChild = findRandomChild(true);
             transformChild.gameObject.SetActive(false);
         }
     }
 
-    private Transform findRandomChild(bool active){
-        Transform transformChild = transform.GetChild(Random.Range(0, transform.childCount-1));
-        if (active == transformChild.gameObject.activeSelf) {
-            inactivePeasantCounter --;
+    private Transform findRandomChild(bool active)
+    {
+        Transform transformChild = transform.GetChild(Random.Range(0, transform.childCount - 1));
+        if (active == transformChild.gameObject.activeSelf)
+        {
+            inactivePeasantCounter--;
             return transformChild;
-        } else {
+        }
+        else
+        {
             return findRandomChild(active);
         }
     }

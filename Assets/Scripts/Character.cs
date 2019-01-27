@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Character : Mobile
 {
-    public int life = 100;
+    public float life = 100;
 
     public HoldableObject objectInHand;
 

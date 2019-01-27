@@ -8,6 +8,7 @@ TagManager:
   - Guard
   - Servant
   - Noble
+  - AngryCrowdStagingArea
   layers:
   - Default
   - TransparentFX

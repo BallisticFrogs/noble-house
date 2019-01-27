@@ -104,9 +104,9 @@ MonoBehaviour:
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}
   wishTea: {fileID: 21300000, guid: 908b04d4f200ca34abd2f0a791618ba2, type: 3}
   wishHungry: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a, type: 3}
-  availableWishes: 000000000100000002000000
-  minDelayBeforeNewTask: 10
-  maxDelayBeforeNewTask: 20
+  availableWishes: 040000000100000002000000
+  minDelayBeforeNewTask: 5
+  maxDelayBeforeNewTask: 10
 --- !u!61 &549216967192017539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -158,8 +158,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2361789744639111807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 1, z: -0.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.563, y: 1.163, z: -0.15}
+  m_LocalScale: {x: 1.51, y: 1.51, z: 1.51}
   m_Children: []
   m_Father: {fileID: 734502001}
   m_RootOrder: 0
@@ -237,8 +237,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7525968555264995214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.9, z: -0.14}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.543, y: 1.043, z: -0.14}
+  m_LocalScale: {x: 1.223, y: 1.223, z: 1.223}
   m_Children: []
   m_Father: {fileID: 734502001}
   m_RootOrder: 1

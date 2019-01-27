@@ -177,6 +177,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a,
         type: 3}
+    - target: {fileID: 734501999, guid: f7f55ef1d65aeaa449d949d64ab93cff, type: 3}
+      propertyPath: minDelayBeforeNewTask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 734501999, guid: f7f55ef1d65aeaa449d949d64ab93cff, type: 3}
+      propertyPath: maxDelayBeforeNewTask
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7f55ef1d65aeaa449d949d64ab93cff, type: 3}
 --- !u!1 &320768769

@@ -692,5 +692,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 862618866202979854, guid: a45efaaacef238640a7317d2ae11f3b4,
+        type: 3}
+      propertyPath: defeatSound
+      value: 
+      objectReference: {fileID: 8300000, guid: ec84971ae98e8334087a87b354885236, type: 3}
+    - target: {fileID: 862618866202979854, guid: a45efaaacef238640a7317d2ae11f3b4,
+        type: 3}
+      propertyPath: victorySound
+      value: 
+      objectReference: {fileID: 8300000, guid: c300c08b77ac2414f8aa14fd3a62a4ef, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a45efaaacef238640a7317d2ae11f3b4, type: 3}

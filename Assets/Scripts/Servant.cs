@@ -14,6 +14,9 @@ public class Servant : Character
     public GameObject progressBarBack;
     public GameObject progressBar;
 
+    [HideInInspector]
+    public GameObject previousObjectToReactivate;
+
     public override void Start()
     {
         base.Start();
@@ -98,7 +101,6 @@ public class Servant : Character
     public override void SetTarget(Vector3Int newTarget)
     {
         base.SetTarget(newTarget);
-        var previousObjectToReactivate = new GameObject();
         if (longTask != null && longTask.previousHeldGameObject != null)
         {
             previousObjectToReactivate = longTask.previousHeldGameObject;

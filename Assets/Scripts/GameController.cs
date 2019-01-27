@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public Servant selectedServant;
 
-    private bool gameLost;
+    private bool gameOver;
 
     private Dictionary<Noble, HoldableObject> activeTasks = new Dictionary<Noble, HoldableObject>();
     void Awake()
@@ -78,12 +78,22 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
-        // check lose condition
+        if (gameOver) return;
+
+        //  check lose condition
         GameObject[] servants = GameObject.FindGameObjectsWithTag(Tags.SERVANT);
-        if ((servants == null || servants.Length == 0) && !gameLost)
+        if ((servants == null || servants.Length == 0) && !gameOver)
         {
-            gameLost = true;
+            gameOver = true;
             GameOverManager.INSTANCE.GameOverDefeat();
+        }
+
+        // check win condition
+        GameObject[] nobles = GameObject.FindGameObjectsWithTag(Tags.NOBLE);
+        if ((nobles == null || nobles.Length == 0) && !gameOver)
+        {
+            gameOver = true;
+            GameOverManager.INSTANCE.GameOverVictory();
         }
 
         // handle servant selection/deselection

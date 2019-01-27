@@ -19,6 +19,8 @@ public class Noble : Character
     private bool dying = false;
     private float hitDelay = 0;
     private int poisonDamage;
+    private Servant murderer;
+    private int hitCounter = 0;
     public HoldableObject[] availableWishes = new HoldableObject[] { HoldableObject.COOKED_CHICKEN, HoldableObject.WATER_BUCKET, HoldableObject.TEA_POT };
     public int minDelayBeforeNewTask = 2;
     public int maxDelayBeforeNewTask = 5;
@@ -136,9 +138,10 @@ public class Noble : Character
         bubbleGameObject.SetActive(false);
     }
 
-    public void KillNoble() {
+    public void KillNoble(Servant servant) {
         dying = true;
         poisonDamage = Random.Range(20, 100);
+        murderer = servant;
     }
 
     private void UpdateDying(){
@@ -150,13 +153,27 @@ public class Noble : Character
         {
             life -= poisonDamage;
             hitDelay = 1;
+            hitCounter += 1;
             target = GameController.INSTANCE.GetDyingTarget(this);
             Instantiate(pukePrefab, transform.position, transform.rotation);
+            if (hitCounter > 2 ) {
+                OrderToKillSpecificServant(murderer);
+            }
         }
     }
 
-    public void OrderToKillServant()
-    {
+    public void OrderToKillSpecificServant(Servant servant){
+        // find closest guard
+        GameObject[] guards = GameObject.FindGameObjectsWithTag(Tags.GUARD);
+        GameObject closestGuard = FindClosest(guards);
+        if (servant != null && closestGuard != null)
+        {
+            Guard guard = closestGuard.GetComponent<Guard>();
+            guard.PleaseKill(servant);
+        }
+    }
+
+    public void OrderToKillClosestServant() {
         // find closest guard
         GameObject[] guards = GameObject.FindGameObjectsWithTag(Tags.GUARD);
         GameObject closestGuard = FindClosest(guards);
@@ -164,7 +181,6 @@ public class Noble : Character
         // find closest servant
         GameObject[] servants = GameObject.FindGameObjectsWithTag(Tags.SERVANT);
         GameObject closestServant = FindClosest(servants);
-
         // ask guard to kill servant
         if (closestServant != null && closestGuard != null)
         {

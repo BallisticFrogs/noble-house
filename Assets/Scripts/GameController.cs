@@ -210,7 +210,7 @@ public class GameController : MonoBehaviour
     public void FailedActiveTask(Noble noble) {
         UIManager.INSTANCE.happynessLevel++;
         UIManager.INSTANCE.angrynessLevel--;
-        noble.OrderToKillServant();
+        noble.OrderToKillClosestServant();
         // Debug.Log("Task failed!");
     }
 

@@ -140,7 +140,7 @@ public class Servant : Character
             Debug.Log("AaAahHh ! C'est du poison !! Salaud !!");
             DeactivateAllSprites();
             longTask = null;
-            noble.KillNoble();
+            noble.KillNoble(this);
         } else 
         {
             Debug.Log("Gardes, débarassez moi de cet incompétent !");

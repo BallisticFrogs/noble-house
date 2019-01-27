@@ -13,7 +13,7 @@ public class Guard : Character
     private float hitDelay = 0;
 
     private Vector3Int postingCellCoords;
-    public Servant currentTarget;
+    private Character currentTarget;
 
     public override void Start()
     {
@@ -79,6 +79,10 @@ public class Guard : Character
             Vector3 movement = dist.normalized * Math.Min(dist.magnitude, maxMove);
             transform.position += movement;
         }
+    }
+
+    public void PleaseKill(Character character) {
+        currentTarget = character;
     }
 
 }

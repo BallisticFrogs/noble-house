@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
 
     private void InitPathfinding()
     {
-        tilemap = GameObject.FindGameObjectWithTag("TilemapObstacles").GetComponent<Tilemap>();
+        tilemap = GameObject.FindGameObjectWithTag(Tags.TILEMAP).GetComponent<Tilemap>();
         if (tilemap == null)
         {
             Debug.LogError("No game object found with tag 'TilemapObstacles'");
@@ -191,7 +191,7 @@ public class GameController : MonoBehaviour
         activeTasks.Remove(noble);
         UIManager.INSTANCE.happynessLevel++;
         UIManager.INSTANCE.angrynessLevel--;
-        AngryCrowdManager.INSTANCE.RemovePeasant();
+        noble.OrderToKillServant();
         Debug.Log("Task failed!");
     }
 

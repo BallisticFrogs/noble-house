@@ -83,7 +83,7 @@ public class Guard : Fighter
     {
         // first attack corrupted guards
         GameObject[] guards = GameObject.FindGameObjectsWithTag(Tags.GUARD);
-        GameObject closestCorruptGuard = FindClosest(guards, obj => obj.GetComponent<Guard>().corrupted);
+        GameObject closestCorruptGuard = FindClosest(guards, obj => { return obj.GetComponent<Guard>().corrupted; });
         if (closestCorruptGuard != null)
         {
             currentTarget = closestCorruptGuard.GetComponent<Character>();

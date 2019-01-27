@@ -96,16 +96,14 @@ public class Character : Mobile
             // skip self
             if (currObj == gameObject) continue;
 
-            if (filter != null && filter.Invoke(currObj))
+            if (filter == null || filter.Invoke(currObj))
             {
-                continue;
-            }
-
-            float d = (currObj.transform.position - transform.position).magnitude;
-            if (d <= dist)
-            {
-                dist = d;
-                closest = currObj;
+                float d = (currObj.transform.position - transform.position).magnitude;
+                if (d <= dist)
+                {
+                    dist = d;
+                    closest = currObj;
+                }
             }
         }
 

@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public Servant selectedServant;
 
-    private Dictionary<Noble, WishEnum> activeTasks = new Dictionary<Noble, WishEnum>();
+    private Dictionary<Noble, HoldableObject> activeTasks = new Dictionary<Noble, HoldableObject>();
     void Awake()
     {
         INSTANCE = this;
@@ -107,8 +107,6 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-
-        UpdateGauge();
     }
 
     private bool DetectClickOnNoble()
@@ -163,7 +161,7 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void AddActiveTasks(Noble noble, WishEnum wish){
+    public void AddActiveTasks(Noble noble, HoldableObject wish){
         activeTasks.Add(noble, wish);
         UIManager.INSTANCE.AddTask(wish);
         // UIManager.INSTANCE.happynessLevel --;
@@ -172,7 +170,7 @@ public class GameController : MonoBehaviour
     }
 
     public void CompleteActiveTask(Noble noble) {
-        WishEnum wish;
+        HoldableObject wish;
         activeTasks.TryGetValue(noble, out wish);
         UIManager.INSTANCE.RemoveTask(wish);
         activeTasks.Remove(noble);

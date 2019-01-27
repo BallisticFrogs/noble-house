@@ -9,17 +9,6 @@ public class UIManager : MonoBehaviour
     public static UIManager INSTANCE;
     public GameObject[] tasksList;
 
-    private Slider happynessSlider;
-    private Slider angrynessSlider;
-    private Slider otherSlider;
-
-    public float happynessMax;
-    public float angrynessMax;
-    public float otherMax;
-    public float happynessLevel;
-    public float angrynessLevel;
-    public float otherLevel;
-
     public GameObject task0;
     public GameObject task1;
     public GameObject task2;
@@ -53,29 +42,11 @@ public class UIManager : MonoBehaviour
         tasksList[6] = task6;
         tasksList[7] = task7;
         tasksList[8] = task8;
-
-        happynessSlider = GameObject.Find("Happiness").GetComponent<Slider>();
-        angrynessSlider = GameObject.Find("Angriness").GetComponent<Slider>();
-        otherSlider = GameObject.Find("Other").GetComponent<Slider>();
-
-        happynessSlider.maxValue = happynessMax;
-        angrynessSlider.maxValue = angrynessMax;
-        otherSlider.maxValue = otherMax;
-        happynessSlider.minValue = 0;
-        angrynessSlider.minValue = 0;
-        otherSlider.minValue = 0;
-
-        happynessLevel = happynessMax / 2;
-        angrynessLevel = angrynessMax / 2;
-        otherLevel = otherMax / 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        happynessSlider.value = happynessLevel;
-        angrynessSlider.value = angrynessLevel;
-        otherSlider.value = otherLevel;
     }
 
     public void updateListItem(GameObject[] nobles) {

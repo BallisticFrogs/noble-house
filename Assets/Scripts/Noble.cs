@@ -72,7 +72,7 @@ public class Noble : Character
         }      
     }
 
-    void FulfillWish (){
+    public void FulfillWish (){
         if (!WishExpired(currentWishTimeCompletion)) {
             InitNoble();
             // GameOverManager.INSTANCE.GameOverVictory();

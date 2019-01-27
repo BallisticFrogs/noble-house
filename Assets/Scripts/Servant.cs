@@ -112,8 +112,19 @@ public class Servant : Character
     public void InteractWithNoble(Noble noble)
     {
         // TODO stuff
-        Debug.Log("interact with noble => objectInHand" + objectInHand);
-        Debug.Log("interact with noble => nobleWish" + noble.currentWish);
+        if(objectInHand == noble.currentWish)
+        {
+            Debug.Log("Je suis content ! Merci");
+            DeactivateAllSprites();
+            longTask = null;
+            noble.FulfillWish();
+        }
+        else
+        {
+            Debug.Log("Gardes, débarassez moi de cet incompétent !");
+            DeactivateAllSprites();
+            longTask = null;
+        }
     }
 
 }

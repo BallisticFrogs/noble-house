@@ -67,9 +67,7 @@ public class Noble : Character
             if (WishExpired(currentWishTimeCompletion))
             {
                 crossGameObject.SetActive(true);
-                GameController.INSTANCE.FailedActiveTask(this);
-                // See later for deafeat condition
-                // GameOverManager.INSTANCE.GameOverDefeat();
+                FailWish();
             }
         }
     }

@@ -204,14 +204,14 @@ public class GameController : MonoBehaviour
         UIManager.INSTANCE.happynessLevel--;
         UIManager.INSTANCE.angrynessLevel++;
         AngryCrowdManager.INSTANCE.addPeasants();
-        // Debug.Log("Task fullfilled!");
+        Debug.Log("Task fullfilled!");
     } 
 
     public void FailedActiveTask(Noble noble) {
         UIManager.INSTANCE.happynessLevel++;
         UIManager.INSTANCE.angrynessLevel--;
         noble.OrderToKillClosestServant();
-        // Debug.Log("Task failed!");
+         Debug.Log("Task failed!");
     }
 
     public Vector3Int GetDyingTarget(Noble noble) {        

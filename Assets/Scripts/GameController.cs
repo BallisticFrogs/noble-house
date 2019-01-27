@@ -241,16 +241,4 @@ public class GameController : MonoBehaviour
         return closestCell;
     }
 
-
-    private bool removeFromActiveTasks(Noble noble) {
-        foreach (KeyValuePair<Noble, HoldableObject> pair in activeTasks) {
-            if (pair.Key.Equals(noble) ){
-                // RemoveAt update indexes in list.
-                // Debug.Log("Remove active tasks index " + activeTasks.IndexOf(pair));
-                activeTasks.RemoveAt(activeTasks.IndexOf(pair));
-                return true;
-            }
-        }
-        return false;
-    }
 }

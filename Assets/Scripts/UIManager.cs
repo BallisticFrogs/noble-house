@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     public GameObject task8;
 
     private readonly int TASK_LIST_SIZE = 9;
-    private int taskCounter=0;
+
     // Start is called before the first frame update
     void Start()
     {   

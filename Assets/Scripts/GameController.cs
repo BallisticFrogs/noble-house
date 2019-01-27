@@ -175,8 +175,8 @@ public class GameController : MonoBehaviour
                 else
                 {
                     // clic directly on it : move close to him
-                    Vector3Int cell = tilemap.WorldToCell(noble.transform.position);
-                    cell = FindClosestFreeCellNear(cell, noble);
+                    Vector3Int cell = tilemap.WorldToCell(guard.transform.position);
+                    cell = FindClosestFreeCellNear(cell, guard);
                     selectedServant.SetTarget(cell);
                 }
                 return true;
@@ -220,20 +220,22 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void CompleteActiveTask(Noble noble) {
+    public void CompleteActiveTask(Noble noble)
+    {
         AngryCrowdManager.INSTANCE.addPeasants();
         Debug.Log("Task fullfilled!");
-    } 
-
-    public void FailedActiveTask(Noble noble) {
-        noble.OrderToKillClosestServant();
-         Debug.Log("Task failed!");
     }
 
-    public Vector3Int GetAgonizingMoveTarget(Character noble)
+    public void FailedActiveTask(Noble noble)
     {
-        Vector3Int cell = tilemap.WorldToCell(noble.transform.position);
-        return FindClosestFreeCellNear(cell, noble);
+        noble.OrderToKillClosestServant();
+        Debug.Log("Task failed!");
+    }
+
+    public Vector3Int GetAgonizingMoveTarget(Character character)
+    {
+        Vector3Int cell = tilemap.WorldToCell(character.transform.position);
+        return FindRandomFreeCellNear(cell);
     }
 
     private Vector3Int FindClosestFreeCellNear(Vector3Int cell, Character character)
@@ -252,6 +254,36 @@ public class GameController : MonoBehaviour
                 {
                     Vector3 testCellPos = tilemap.GetCellCenterWorld(testCell);
                     float d = (character.transform.position - testCellPos).magnitude;
+                    if (d <= dist)
+                    {
+                        dist = d;
+                        closestCell = testCell;
+                    }
+                }
+            }
+        }
+
+        return closestCell;
+    }
+
+    private Vector3Int FindRandomFreeCellNear(Vector3Int cell)
+    {
+        Vector3Int closestCell = cell;
+        float dist = float.MaxValue;
+
+        for (int i = -2; i <= 2; i += 1)
+        {
+            for (int j = -2; j <= 2; j += 1)
+            {
+                if (i == 0 && j == 0) continue;
+
+                var testCell = new Vector3Int(cell.x + i, cell.y + j, 0);
+                TileBase tile = tilemap.GetTile(testCell);
+                bool hasObstacle = tile != null && tile.GetType() == typeof(WorldTile);
+                if (!hasObstacle)
+                {
+                    Vector3 testCellPos = tilemap.GetCellCenterWorld(testCell);
+                    float d = UnityEngine.Random.Range(0, 100);
                     if (d <= dist)
                     {
                         dist = d;

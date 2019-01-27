@@ -16,7 +16,7 @@ public class Character : Mobile
     public Noble objectOwner;
 
 
-    private bool poisoned = false;
+    protected bool poisoned = false;
     private int poisonHitCounter = 0;
     private float poisonHitDelay = 0;
     private int poisonDamage;
@@ -66,8 +66,9 @@ public class Character : Mobile
     public void Poison(Servant servant)
     {
         poisoned = true;
-        poisonDamage = UnityEngine.Random.Range(20, 100);
+        poisonDamage = UnityEngine.Random.Range(10, 20);
         poisonMurderer = servant;
+        speed = speed * 0.2f;
     }
 
     protected virtual void OnPoisonHit(int hitCount, Servant poisonMurderer)

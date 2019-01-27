@@ -52,7 +52,7 @@ public class Guard : Fighter
         }
 
         // if no target and not in position, go back there
-        if (currentTarget == null && postingCellCoords != GameController.INSTANCE.tilemap.WorldToCell(transform.position))
+        if (currentTarget == null && !poisoned && postingCellCoords != GameController.INSTANCE.tilemap.WorldToCell(transform.position))
         {
             SetTarget(postingCellCoords);
         }

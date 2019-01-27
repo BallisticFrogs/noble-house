@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 3197595307922082454}
   - component: {fileID: 7742634659124929662}
   m_Layer: 5
-  m_Name: Task8
+  m_Name: Task7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,9 +468,15 @@ MonoBehaviour:
   happynessMax: 10
   angrynessMax: 10
   otherMax: 10
-  happynessLevel: 0
-  angrynessLevel: 0
-  otherLevel: 0
+  task0: {fileID: 232183069096943394}
+  task1: {fileID: 5311185722549345342}
+  task2: {fileID: 1606905027012727174}
+  task3: {fileID: 1907599607328723025}
+  task4: {fileID: 4907198997276414696}
+  task5: {fileID: 6405217959844881858}
+  task6: {fileID: 3420774422402086919}
+  task7: {fileID: 671013217575153217}
+  task8: {fileID: 0}
 --- !u!1 &1606905027012727174
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +489,7 @@ GameObject:
   - component: {fileID: 4621753262501495737}
   - component: {fileID: 630130281983657743}
   m_Layer: 5
-  m_Name: Task3
+  m_Name: Task2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,7 +656,7 @@ GameObject:
   - component: {fileID: 7658741725453948485}
   - component: {fileID: 4402777340038529074}
   m_Layer: 5
-  m_Name: Task4
+  m_Name: Task3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -873,7 +879,7 @@ GameObject:
   - component: {fileID: 1321027693460090237}
   - component: {fileID: 2027403986988212585}
   m_Layer: 5
-  m_Name: Task7
+  m_Name: Task6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1098,7 +1104,7 @@ GameObject:
   - component: {fileID: 4930719265792336507}
   - component: {fileID: 8657893400422224300}
   m_Layer: 5
-  m_Name: Task5
+  m_Name: Task4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1474,7 +1480,7 @@ GameObject:
   - component: {fileID: 296162162251605790}
   - component: {fileID: 1957950589168260604}
   m_Layer: 5
-  m_Name: Task6
+  m_Name: Task5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -151,18 +151,9 @@ public class GameController : MonoBehaviour
             }
             return true;
         }
-
         return false;
     }
 
-    private void UpdateGauge()
-    {
-        UIManager ui = UIManager.INSTANCE;
-        ui.happynessLevel = UnityEngine.Random.Range(0, ui.happynessMax);
-        ui.angrynessLevel = UnityEngine.Random.Range(0, ui.angrynessMax);
-        ui.otherLevel = UnityEngine.Random.Range(0, ui.otherMax);
-
-    }
     private bool isServantCloseToTile(Vector3Int servantCoords, Vector3Int cellMouse)
     {
         if (Math.Abs(servantCoords.x - cellMouse.x) < 1.5 && Math.Abs(servantCoords.y - cellMouse.y) < 1.5)
@@ -174,22 +165,29 @@ public class GameController : MonoBehaviour
 
     public void AddActiveTasks(Noble noble, WishEnum wish){
         activeTasks.Add(noble, wish);
-        UIManager.INSTANCE.happynessLevel --;
-        UIManager.INSTANCE.angrynessLevel --;
+        UIManager.INSTANCE.AddTask(wish);
+        // UIManager.INSTANCE.happynessLevel --;
+        // UIManager.INSTANCE.angrynessLevel --;
+        Debug.Log("New Task");
     }
 
     public void CompleteActiveTask(Noble noble) {
+        WishEnum wish;
+        activeTasks.TryGetValue(noble, out wish);
+        UIManager.INSTANCE.RemoveTask(wish);
         activeTasks.Remove(noble);
-        UIManager.INSTANCE.happynessLevel ++;
-        UIManager.INSTANCE.angrynessLevel ++;
+        UIManager.INSTANCE.happynessLevel--;
+        UIManager.INSTANCE.angrynessLevel++;
         AngryCrowdManager.INSTANCE.addPeasant();
+        Debug.Log("Task fullfilled!");
     } 
 
     public void FailedActiveTask(Noble noble) {
         activeTasks.Remove(noble);
-        UIManager.INSTANCE.happynessLevel ++;
-        UIManager.INSTANCE.angrynessLevel --;
+        UIManager.INSTANCE.happynessLevel++;
+        UIManager.INSTANCE.angrynessLevel--;
         AngryCrowdManager.INSTANCE.RemovePeasant();
+        Debug.Log("Task failed!");
     }
 
 }

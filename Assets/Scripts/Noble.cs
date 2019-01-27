@@ -36,7 +36,7 @@ public class Noble : Character
             } else {
                 // Pick a task
                 currentWish = availableWishes[(int) Random.Range(0, availableWishes.Length)];
-                UIManager.INSTANCE.AddTask(currentWish);
+                GameController.INSTANCE.AddActiveTasks(this, currentWish);
                 bubbleGameObject.SetActive(true);
                 wishGameObject.SetActive(true); 
                 switch (currentWish) {
@@ -63,6 +63,14 @@ public class Noble : Character
                 // See later for deafeat condition
                 // GameOverManager.INSTANCE.GameOverDefeat();
             }
+        }
+        // TODO replace by true fullfill condition
+        if (Input.GetKeyUp(KeyCode.A)) {
+            GameController.INSTANCE.CompleteActiveTask(this);
+        }
+        // TODO replace by true failed condition
+        if (Input.GetKeyUp(KeyCode.Z)) {
+            GameController.INSTANCE.FailedActiveTask(this);
         }
     }
 

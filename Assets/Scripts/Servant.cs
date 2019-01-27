@@ -11,6 +11,8 @@ public class Servant : Character
     public GameObject teaPot;
     public GameObject chicken;
     public GameObject cookedChicken;
+
+    public GameObject poisonedTea;
     public GameObject progressBarBack;
     public GameObject progressBar;
 
@@ -74,6 +76,13 @@ public class Servant : Character
                         progressBarBack.SetActive(true);
                         break;
                 }
+                break;
+            case TileType.POISONED_BUSH:
+                    if (objectInHand == HoldableObject.WATER_BUCKET) {
+                        DeactivateAllSprites();
+                        longTask = new LongTask(waterBucket, poisonedTea, HoldableObject.POISONED_TEA, UnityEngine.Random.Range(2.0f, 5.0f));
+                        progressBarBack.SetActive(true);
+                    }
                 break;
             case TileType.THRONE:
                 switch (objectInHand)

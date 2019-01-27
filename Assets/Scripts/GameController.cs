@@ -129,7 +129,7 @@ public class GameController : MonoBehaviour
                 }
                 if (!handled)
                 {
-                    Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                    Vector3Int cellMouse = tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                     this.selectedServant.SetTarget(cellMouse);
                 }
             }
@@ -151,7 +151,10 @@ public class GameController : MonoBehaviour
                 }
                 else
                 {
-                    // TODO move close to him
+                    // clic directly on it : move close to him
+                    Vector3Int cell = tilemap.WorldToCell(noble.transform.position);
+                    cell = FindClosestFreeCellNear(cell, noble);
+                    selectedServant.SetTarget(cell);
                 }
                 return true;
             }
@@ -162,9 +165,9 @@ public class GameController : MonoBehaviour
     private bool DetectClickOnSpecialTile()
     {
         // handle clics on special tiles
-        Vector3Int cellMouse = GameController.INSTANCE.tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        var tileClicked = GameController.INSTANCE.tilemap.GetTile(cellMouse);
-        Vector3Int servantCoords = GameController.INSTANCE.tilemap.WorldToCell(selectedServant.transform.position);
+        Vector3Int cellMouse = tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        var tileClicked = tilemap.GetTile(cellMouse);
+        Vector3Int servantCoords = tilemap.WorldToCell(selectedServant.transform.position);
 
         if (tileClicked != null && tileClicked.GetType() == typeof(WorldTile))
         {
@@ -173,6 +176,12 @@ public class GameController : MonoBehaviour
             if (isServantCloseToTile(servantCoords, cellMouse))
             {
                 selectedServant.HandleClicOnSpecialTile(wt);
+            }
+            else
+            {
+                // clic directly on it : move close to him
+                var cell = FindClosestFreeCellNear(cellMouse, selectedServant);
+                selectedServant.SetTarget(cell);
             }
             return true;
         }
@@ -216,6 +225,34 @@ public class GameController : MonoBehaviour
         UIManager.INSTANCE.angrynessLevel--;
         noble.OrderToKillServant();
         Debug.Log("Task failed!");
+    }
+
+    private Vector3Int FindClosestFreeCellNear(Vector3Int cell, Character character)
+    {
+        Vector3Int closestCell = cell;
+        float dist = float.MaxValue;
+
+        for (int i = -1; i <= 1; i += 2)
+        {
+            for (int j = -1; j <= 1; j += 2)
+            {
+                var testCell = new Vector3Int(cell.x + i, cell.y + j, 0);
+                TileBase tile = tilemap.GetTile(testCell);
+                bool hasObstacle = tile != null && tile.GetType() == typeof(WorldTile);
+                if (!hasObstacle)
+                {
+                    Vector3 testCellPos = tilemap.GetCellCenterWorld(testCell);
+                    float d = (character.transform.position - testCellPos).magnitude;
+                    if (d <= dist)
+                    {
+                        dist = d;
+                        closestCell = testCell;
+                    }
+                }
+            }
+        }
+
+        return closestCell;
     }
 
 }

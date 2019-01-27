@@ -215,6 +215,11 @@ public class GameController : MonoBehaviour
         // Debug.Log("Task failed!");
     }
 
+    public Vector3Int GetDyingTarget(Noble noble) {        
+        Vector3Int cell = tilemap.WorldToCell(noble.transform.position);
+        return FindClosestFreeCellNear(cell, noble);
+    }
+
     private Vector3Int FindClosestFreeCellNear(Vector3Int cell, Character character)
     {
         Vector3Int closestCell = cell;

@@ -12,11 +12,13 @@ public class Noble : Character
 
     public GameObject wishGameObject;
     public GameObject bubbleGameObject;
-
+    public GameObject pukePrefab;
     public Sprite wishWater;
     public Sprite wishTea;
     public Sprite wishHungry;
-
+    private bool dying = false;
+    private float hitDelay = 0;
+    private int poisonDamage;
     public HoldableObject[] availableWishes = new HoldableObject[] { HoldableObject.COOKED_CHICKEN, HoldableObject.WATER_BUCKET, HoldableObject.TEA_POT };
     public int minDelayBeforeNewTask = 2;
     public int maxDelayBeforeNewTask = 5;
@@ -30,7 +32,9 @@ public class Noble : Character
     public override void Update()
     {
         base.Update();
-
+        if (dying) {
+            UpdateDying();
+        }
         //TODO asking for servant²
         if (currentWish == HoldableObject.NONE)
         {
@@ -130,6 +134,25 @@ public class Noble : Character
         delayBeforeNewTask = Random.Range(minDelayBeforeNewTask, maxDelayBeforeNewTask);
         wishGameObject.SetActive(false);
         bubbleGameObject.SetActive(false);
+    }
+
+    public void KillNoble() {
+        dying = true;
+        poisonDamage = Random.Range(20, 100);
+    }
+
+    private void UpdateDying(){
+        if (hitDelay > 0)
+        {
+            hitDelay -= Time.deltaTime;
+        }
+        if (hitDelay <= 0)
+        {
+            life -= poisonDamage;
+            hitDelay = 1;
+            target = GameController.INSTANCE.GetDyingTarget(this);
+            Instantiate(pukePrefab, transform.position, transform.rotation);
+        }
     }
 
     public void OrderToKillServant()

@@ -102,6 +102,8 @@ MonoBehaviour:
   previousWish: 0
   wishGameObject: {fileID: 2361789744639111807}
   bubbleGameObject: {fileID: 7525968555264995214}
+  pukePrefab: {fileID: 8378580201598915389, guid: 11a0bd37444d0d84ab138c3cdc42ff20,
+    type: 3}
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}
   wishTea: {fileID: 21300000, guid: 908b04d4f200ca34abd2f0a791618ba2, type: 3}
   wishHungry: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a, type: 3}

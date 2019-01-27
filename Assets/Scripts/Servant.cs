@@ -135,7 +135,13 @@ public class Servant : Character
             longTask = null;
             noble.FulfillWish();
         }
-        else
+        else if ( objectInHand == HoldableObject.POISONED_TEA) 
+        {
+            Debug.Log("AaAahHh ! C'est du poison !! Salaud !!");
+            DeactivateAllSprites();
+            longTask = null;
+            noble.KillNoble();
+        } else 
         {
             Debug.Log("Gardes, débarassez moi de cet incompétent !");
             DeactivateAllSprites();

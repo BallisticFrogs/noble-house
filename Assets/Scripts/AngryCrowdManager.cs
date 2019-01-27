@@ -5,8 +5,8 @@ using UnityEngine;
 public class AngryCrowdManager : MonoBehaviour
 {
     public static AngryCrowdManager INSTANCE;
-    
-    private int inactivePeasantCounter;
+
+    public int activePeasantBySuccess = 5;
 
     public bool rampaging;
 
@@ -18,43 +18,69 @@ public class AngryCrowdManager : MonoBehaviour
         peasantsStagingArea = GameObject.FindGameObjectWithTag(Tags.PEASANTS_STAGING_AREA).transform;
     }
 
-    void Update()
+    public void addPeasants()
     {
-
+        ActivateRandomPeasants(true, activePeasantBySuccess);
     }
 
-    public void addPeasant()
+    public void ActivateRandomPeasants(bool active, int count)
     {
-        if (inactivePeasantCounter > 0)
+        List<Transform> children = FindRandomChildren(!active, count);
+        foreach (var item in children)
         {
-            // Look for inactive peasant
-            Transform transformChild = findRandomChild(false);
-            transformChild.gameObject.SetActive(true);
+            item.gameObject.SetActive(active);
+        }
+
+        int inactivePeasants = CountActiveChildren(false);
+        if (inactivePeasants == 0)
+        {
+            rampaging = true;
         }
     }
 
-    public void RemovePeasant()
+    public Peasant FindRandomPeasant()
     {
-        if (inactivePeasantCounter <= 0)
+        List<Transform> result = FindRandomChildren(true, 1);
+        if (result != null && result.Count > 0)
         {
-            Transform transformChild = findRandomChild(true);
-            transformChild.gameObject.SetActive(false);
-        }
-    }
-
-    private Transform findRandomChild(bool active)
-    {
-        Transform transformChild = transform.GetChild(Random.Range(0, transform.childCount - 1));
-        if (active == transformChild.gameObject.activeSelf)
-        {
-            inactivePeasantCounter--;
-            return transformChild;
+            return result[0].GetComponent<Peasant>();
         }
         else
         {
-            return findRandomChild(active);
+            return null;
         }
     }
 
+    private List<Transform> FindRandomChildren(bool active, int count)
+    {
+        List<Transform> children = new List<Transform>();
+        foreach (Transform currChild in peasantsStagingArea.transform)
+        {
+            if (currChild.gameObject.activeInHierarchy == active)
+            {
+                children.Add(currChild);
+            }
+        }
+
+        // shuffle
+        children.Sort((a, b) => Random.Range(-1, 1));
+
+        // select some
+        List<Transform> result = children.GetRange(0, Mathf.Min(count, children.Count));
+        return result;
+    }
+
+    private int CountActiveChildren(bool active)
+    {
+        int count = 0;
+        foreach (Transform currChild in peasantsStagingArea.transform)
+        {
+            if (currChild.gameObject.activeInHierarchy == active)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
 
 }

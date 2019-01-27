@@ -20,6 +20,12 @@ public class Guard : Fighter
     {
         base.Update();
 
+        // handle rampage time : charge !!!
+        if (AngryCrowdManager.INSTANCE.rampaging && currentTarget == null)
+        {
+            currentTarget = AngryCrowdManager.INSTANCE.FindRandomPeasant();
+        }
+
         // if no target and not in position, go back there
         if (currentTarget == null && postingCellCoords != GameController.INSTANCE.tilemap.WorldToCell(transform.position))
         {

@@ -13,6 +13,8 @@ public class Noble : Character
     public GameObject wishGameObject;
     public GameObject bubbleGameObject;
     public GameObject pukePrefab;
+    public GameObject crossGameObject;
+    
     public Sprite wishWater;
     public Sprite wishTea;
     public Sprite wishHungry;
@@ -24,6 +26,12 @@ public class Noble : Character
     public HoldableObject[] availableWishes = new HoldableObject[] { HoldableObject.COOKED_CHICKEN, HoldableObject.WATER_BUCKET, HoldableObject.TEA_POT };
     public int minDelayBeforeNewTask = 2;
     public int maxDelayBeforeNewTask = 5;
+
+    public int cookedChickenCompletionTime = 120;
+    public int waterCompletionTime = 40;
+    public int teaCompletionTime = 100;
+
+    public int crossBlinkDelay = 2;
 
     public override void Start()
     {
@@ -52,8 +60,13 @@ public class Noble : Character
         {
             // Increase the number of frames the noble is currently waiting for 
             currentWishTimeCompletion += Time.deltaTime;
+
+            // Update the color of the bubble and the visibility of the cross
+            UpdateBubble();
+
             if (WishExpired(currentWishTimeCompletion))
             {
+                crossGameObject.SetActive(true);
                 GameController.INSTANCE.FailedActiveTask(this);
                 // See later for deafeat condition
                 // GameOverManager.INSTANCE.GameOverDefeat();
@@ -105,26 +118,8 @@ public class Noble : Character
 
     bool WishExpired(float elapsedTime)
     {
-        switch (currentWish)
-        {
-            case HoldableObject.COOKED_CHICKEN:
-                if (currentWishTimeCompletion > 120)
-                {
-                    return true;
-                }
-                break;
-            case HoldableObject.WATER_BUCKET:
-                if (currentWishTimeCompletion > 60)
-                {
-                    return true;
-                }
-                break;
-            case HoldableObject.TEA_POT:
-                if (currentWishTimeCompletion > 100)
-                {
-                    return true;
-                }
-                break;
+        if (currentWishTimeCompletion > GetExpectedWishCompletionTime(currentWish)) {
+            return true;
         }
         return false;
     }
@@ -136,6 +131,8 @@ public class Noble : Character
         delayBeforeNewTask = Random.Range(minDelayBeforeNewTask, maxDelayBeforeNewTask);
         wishGameObject.SetActive(false);
         bubbleGameObject.SetActive(false);
+        crossGameObject.SetActive(false);
+        bubbleGameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
     }
 
     public void KillNoble(Servant servant) {
@@ -208,4 +205,41 @@ public class Noble : Character
         return closest;
     }
 
+    private int GetExpectedWishCompletionTime (HoldableObject o) {
+        switch (currentWish)
+        {
+            case HoldableObject.COOKED_CHICKEN:
+                return cookedChickenCompletionTime;
+            case HoldableObject.WATER_BUCKET:
+                return waterCompletionTime;
+            case HoldableObject.TEA_POT:
+                return teaCompletionTime;
+            default:
+                return 0;
+        }
+    }
+
+    private void UpdateBubble() {
+        // Color of the bubble
+        float redColor = currentWishTimeCompletion / GetExpectedWishCompletionTime(currentWish);
+        if (redColor < 0.25) {
+            redColor = 0f;
+        }  else if (redColor < 0.5) {
+            redColor = 0.25f;
+        } else if (redColor < 0.75) {
+            redColor = 0.5f;
+        } else {
+            redColor = 1f;
+        }
+        bubbleGameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1 - redColor, 1 - redColor);
+
+        // cross state
+        if (currentWishTimeCompletion > GetExpectedWishCompletionTime(currentWish) / 2) {
+            if (currentWishTimeCompletion % crossBlinkDelay*2 < crossBlinkDelay) {
+                crossGameObject.SetActive(true);
+            } else {
+                crossGameObject.SetActive(false);
+            }
+        }
+    }
 }

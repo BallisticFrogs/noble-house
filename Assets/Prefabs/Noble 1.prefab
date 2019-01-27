@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 743191069030232778}
   - {fileID: 4949613848119289408}
+  - {fileID: 6732184819282147119}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,14 +103,21 @@ MonoBehaviour:
   previousWish: 0
   wishGameObject: {fileID: 2361789744639111807}
   bubbleGameObject: {fileID: 7525968555264995214}
+<<<<<<< HEAD
   pukePrefab: {fileID: 8378580201598915389, guid: 11a0bd37444d0d84ab138c3cdc42ff20,
     type: 3}
+=======
+  crossGameObject: {fileID: 3518500577220800623}
+>>>>>>> added a blinking cross in the noble's bubble
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}
   wishTea: {fileID: 21300000, guid: 908b04d4f200ca34abd2f0a791618ba2, type: 3}
   wishHungry: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a, type: 3}
   availableWishes: 0100000002000000020000000400000004000000
   minDelayBeforeNewTask: 5
   maxDelayBeforeNewTask: 10
+  cookedChickenCompletionTime: 120
+  waterCompletionTime: 40
+  teaCompletionTime: 100
 --- !u!61 &549216967192017539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -205,6 +213,85 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.64, y: 0.64}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!1 &3518500577220800623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6732184819282147119}
+  - component: {fileID: 7668017866100458794}
+  m_Layer: 0
+  m_Name: CrossGameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6732184819282147119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518500577220800623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.56, y: 1.2, z: -0.2}
+  m_LocalScale: {x: 1.573, y: 1.573, z: 1.573}
+  m_Children: []
+  m_Father: {fileID: 734502001}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7668017866100458794
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3518500577220800623}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 187724b7ee84f094ea06ef214573ec81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

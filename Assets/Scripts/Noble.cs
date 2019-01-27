@@ -5,7 +5,7 @@ using UnityEngine;
 public class Noble : Character
 {
     [HideInInspector]
-    public WishEnum currentWish;
+    public HoldableObject currentWish;
     private float currentWishTimeCompletion; // Time the Noble has been waiting for the completion of the task
     private float delayBeforeNewTask;
 
@@ -16,7 +16,7 @@ public class Noble : Character
     public Sprite wishTea;
     public Sprite wishHungry;
 
-    public WishEnum[] availableWishes = new WishEnum[] { WishEnum.HUNGRY, WishEnum.WATER, WishEnum.TEA };
+    public HoldableObject[] availableWishes = new HoldableObject[] { HoldableObject.COOKED_CHICKEN, HoldableObject.WATER_BUCKET, HoldableObject.TEA_POT };
     public int minDelayBeforeNewTask = 10;
     public int maxDelayBeforeNewTask = 20;
 
@@ -30,7 +30,7 @@ public class Noble : Character
         base.Update();
         
         //TODO asking for servant²
-        if (currentWish == WishEnum.WAIT) {
+        if (currentWish == HoldableObject.NONE) {
             if (delayBeforeNewTask  > 0) {
                 delayBeforeNewTask -= Time.deltaTime;
             } else {
@@ -40,15 +40,15 @@ public class Noble : Character
                 bubbleGameObject.SetActive(true);
                 wishGameObject.SetActive(true); 
                 switch (currentWish) {
-                    case WishEnum.HUNGRY: 
+                    case HoldableObject.COOKED_CHICKEN: 
                         Debug.Log("Current wish: hungry");
                         wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
                     break;
-                    case WishEnum.TEA:
+                    case HoldableObject.TEA_POT:
                     Debug.Log("Current wish: tea");
                         wishGameObject.GetComponent<SpriteRenderer>().sprite = wishTea;
                     break;
-                    case WishEnum.WATER:
+                    case HoldableObject.WATER_BUCKET:
                     Debug.Log("Current wish: water");
                         wishGameObject.GetComponent<SpriteRenderer>().sprite = wishWater;
                     break;
@@ -64,10 +64,10 @@ public class Noble : Character
         }
     }
 
-    void UpdateWish(WishEnum wish) {
+    void UpdateWish(HoldableObject wish) {
         currentWish = wish;
         //Do not add task if noble is idling.
-        if (WishEnum.WAIT != wish ) {
+        if (HoldableObject.NONE != wish ) {
             UIManager.INSTANCE.AddTask(currentWish);
         }      
     }
@@ -81,17 +81,17 @@ public class Noble : Character
 
     bool WishExpired(float elapsedTime) {
         switch (currentWish){
-            case WishEnum.HUNGRY:
+            case HoldableObject.COOKED_CHICKEN:
                 if (currentWishTimeCompletion > 120) {
                     return true;
                 } 
                 break;
-            case WishEnum.WATER:
+            case HoldableObject.WATER_BUCKET:
                 if (currentWishTimeCompletion > 60) {
                     return true;
                 }
                 break;
-            case WishEnum.TEA:
+            case HoldableObject.TEA_POT:
                 if (currentWishTimeCompletion > 100) {
                     return true;
                 }
@@ -101,7 +101,7 @@ public class Noble : Character
     }
 
     void InitNoble() {
-        currentWish = WishEnum.WAIT;
+        currentWish = HoldableObject.NONE;
         currentWishTimeCompletion = 0;
         delayBeforeNewTask = Random.Range(minDelayBeforeNewTask, maxDelayBeforeNewTask);
         wishGameObject.SetActive(false);

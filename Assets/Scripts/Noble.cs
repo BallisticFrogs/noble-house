@@ -62,7 +62,6 @@ public class Noble : Character
         {
             PickTask();
         }
-        GameController.INSTANCE.AddActiveTasks(this, currentWish);
         bubbleGameObject.SetActive(true);
         wishGameObject.SetActive(true);
         switch (currentWish)
@@ -80,15 +79,6 @@ public class Noble : Character
                 wishGameObject.GetComponent<SpriteRenderer>().sprite = wishWater;
                 break;
         }
-    }
-
-    void UpdateWish(HoldableObject wish)
-    {
-        currentWish = wish;
-        //Do not add task if noble is idling.
-        if (HoldableObject.NONE != wish ) {
-            GameController.INSTANCE.AddActiveTasks(this, currentWish);
-        }      
     }
 
     public void FulfillWish (){

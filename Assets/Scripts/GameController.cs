@@ -23,8 +23,6 @@ public class GameController : MonoBehaviour
 
     private bool gameOver;
 
-    private List<KeyValuePair<Noble, HoldableObject>> activeTasks = new List<KeyValuePair<Noble, HoldableObject>>();
-
     void Awake()
     {
         INSTANCE = this;
@@ -97,7 +95,8 @@ public class GameController : MonoBehaviour
             GameOverManager.INSTANCE.GameOverVictory();
         }
 
-        UpdateTaskLists();
+        UIManager.INSTANCE.updateListItem(GameObject.FindGameObjectsWithTag(Tags.NOBLE));
+
         // handle servant selection/deselection
         if (Input.GetMouseButtonDown(0))
         {
@@ -193,34 +192,13 @@ public class GameController : MonoBehaviour
     private bool isServantCloseToTile(Vector3Int servantCoords, Vector3Int cellMouse)
     {
         if (Math.Abs(servantCoords.x - cellMouse.x) < 1.5 && Math.Abs(servantCoords.y - cellMouse.y) < 1.5)
-        {
+        {   
             return true;
         }
         return false;
     }
 
-    private void UpdateTaskLists () {
-        UIManager ui = UIManager.INSTANCE;
-        for (int i = 0; i < activeTasks.Count; i++ )
-        {   
-            // Debug.Log(activeTasks[i]);
-            if( i >= ui.TASK_LIST_SIZE) {
-                return;
-            }
-            ui.updateListItem(ui.tasksList[i], activeTasks[i].Value);
-        }
-    }
-
-    public void AddActiveTasks(Noble noble, HoldableObject wish){
-        // Debug.Log("Add to collection " + noble + " " + wish);
-        activeTasks.Add(new KeyValuePair<Noble, HoldableObject>(noble, wish));
-        // UIManager.INSTANCE.happynessLevel --;
-        // UIManager.INSTANCE.angrynessLevel --;
-        // Debug.Log("New Task");
-    }
-
     public void CompleteActiveTask(Noble noble) {
-        removeFromActiveTasks(noble);
         UIManager.INSTANCE.happynessLevel--;
         UIManager.INSTANCE.angrynessLevel++;
         AngryCrowdManager.INSTANCE.addPeasant();
@@ -228,7 +206,6 @@ public class GameController : MonoBehaviour
     } 
 
     public void FailedActiveTask(Noble noble) {
-        removeFromActiveTasks(noble);
         UIManager.INSTANCE.happynessLevel++;
         UIManager.INSTANCE.angrynessLevel--;
         noble.OrderToKillServant();

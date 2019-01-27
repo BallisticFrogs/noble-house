@@ -28,8 +28,9 @@ public class UIManager : MonoBehaviour
     public GameObject task5;
     public GameObject task6;
     public GameObject task7;
+    public GameObject task8;
 
-    public readonly int TASK_LIST_SIZE = 8;
+    private readonly int TASK_LIST_SIZE = 9;
     private int taskCounter=0;
     // Start is called before the first frame update
     void Start()
@@ -47,10 +48,11 @@ public class UIManager : MonoBehaviour
         tasksList[1] = task1;
         tasksList[2] = task2;
         tasksList[3] = task3;
-        tasksList[4] = task4;   
+        tasksList[4] = task4;
         tasksList[5] = task5;
         tasksList[6] = task6;
         tasksList[7] = task7;
+        tasksList[8] = task8;
 
         happynessSlider = GameObject.Find("Happiness").GetComponent<Slider>();
         angrynessSlider = GameObject.Find("Angriness").GetComponent<Slider>();
@@ -76,14 +78,20 @@ public class UIManager : MonoBehaviour
         otherSlider.value = otherLevel;
     }
 
-
-
-    public void updateListItem(GameObject task, HoldableObject wish) {
-        Debug.Log("Update Task " + task + " wish " + wish);
-        if ( task == task7 ) {
-            task.GetComponent<Text>().text = "And more ...";
+    public void updateListItem(GameObject[] nobles) {
+        int taskIndex = 0;
+        for (int i = 0; i < nobles.Length; i++) {
+            Noble noble = nobles[i].GetComponent<Noble>();
+            if (!noble.currentWish.Equals(HoldableObject.NONE)) {
+                Text taskText = tasksList[taskIndex].GetComponent<Text>();
+                if ( taskIndex == TASK_LIST_SIZE-1) {
+                    taskText.text = "And more ...";
+                    return;
+                }
+                taskText.text = GetTextFromWish(noble.currentWish);
+                taskIndex++;
+            }
         }
-        task.GetComponent<Text>().text = GetTextFromWish(wish);
     }
 
 

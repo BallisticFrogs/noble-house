@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Noble : Character
 {
-    
-    private WishEnum currentWish;
+    [HideInInspector]
+    public WishEnum currentWish;
     private float currentWishTimeCompletion; // Time the Noble has been waiting for the completion of the task
     private float delayBeforeNewTask;
 

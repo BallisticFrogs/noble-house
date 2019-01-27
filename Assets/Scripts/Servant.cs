@@ -109,10 +109,11 @@ public class Servant : Character
         progressBar.SetActive(false);
     }
 
-    public void InteractWithNoble()
+    public void InteractWithNoble(Noble noble)
     {
         // TODO stuff
-        Debug.Log("interact with noble");
+        Debug.Log("interact with noble => objectInHand" + objectInHand);
+        Debug.Log("interact with noble => nobleWish" + noble.currentWish);
     }
 
 }

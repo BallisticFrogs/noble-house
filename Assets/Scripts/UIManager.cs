@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
     }
 
     // 9 displayed tasks only. Return false if tasklist full
-    public bool AddTask(WishEnum wish) {
+    public bool AddTask(HoldableObject wish) {
         for (int i = 0 ; i < TASK_LIST_SIZE; i ++) {
             Text taskText = tasksList[i].GetComponent<Text>();
             taskText.text = GetTextFromWish(wish);
@@ -59,14 +59,14 @@ public class UIManager : MonoBehaviour
         return false;
     }
 
-    private string GetTextFromWish(WishEnum wish){
+    private string GetTextFromWish(HoldableObject wish){
         switch(wish) 
         {
-            case WishEnum.HUNGRY:
+            case HoldableObject.COOKED_CHICKEN:
             return "I'm hungry!";
-            case WishEnum.WATER:
+            case HoldableObject.WATER_BUCKET:
             return "I'm thirsty for water!";
-            case WishEnum.TEA:
+            case HoldableObject.TEA_POT:
             return "I'm thirsty for tea!";
             default :
             return null;

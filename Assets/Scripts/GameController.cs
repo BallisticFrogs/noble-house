@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public Servant selectedServant;
 
+    private bool gameLost;
+
     private Dictionary<Noble, HoldableObject> activeTasks = new Dictionary<Noble, HoldableObject>();
     void Awake()
     {
@@ -76,6 +78,14 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        // check lose condition
+        GameObject[] servants = GameObject.FindGameObjectsWithTag(Tags.SERVANT);
+        if ((servants == null || servants.Length == 0) && !gameLost)
+        {
+            gameLost = true;
+            GameOverManager.INSTANCE.GameOverDefeat();
+        }
+
         // handle servant selection/deselection
         if (Input.GetMouseButtonDown(0))
         {
@@ -168,7 +178,8 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void AddActiveTasks(Noble noble, HoldableObject wish){
+    public void AddActiveTasks(Noble noble, HoldableObject wish)
+    {
         activeTasks.Add(noble, wish);
         UIManager.INSTANCE.AddTask(wish);
         // UIManager.INSTANCE.happynessLevel --;
@@ -176,7 +187,8 @@ public class GameController : MonoBehaviour
         Debug.Log("New Task");
     }
 
-    public void CompleteActiveTask(Noble noble) {
+    public void CompleteActiveTask(Noble noble)
+    {
         HoldableObject wish;
         activeTasks.TryGetValue(noble, out wish);
         UIManager.INSTANCE.RemoveTask(wish);
@@ -185,9 +197,10 @@ public class GameController : MonoBehaviour
         UIManager.INSTANCE.angrynessLevel++;
         AngryCrowdManager.INSTANCE.addPeasant();
         Debug.Log("Task fullfilled!");
-    } 
+    }
 
-    public void FailedActiveTask(Noble noble) {
+    public void FailedActiveTask(Noble noble)
+    {
         activeTasks.Remove(noble);
         UIManager.INSTANCE.happynessLevel++;
         UIManager.INSTANCE.angrynessLevel--;

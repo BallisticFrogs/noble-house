@@ -5,5 +5,6 @@
     TEA_POT,
     CHICKEN,
     COOKED_CHICKEN,
-    POISONED_TEA
+    POISONED_TEA,
+    LETTER
 }

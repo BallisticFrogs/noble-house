@@ -11,6 +11,7 @@ public class Servant : Character
     public GameObject teaPot;
     public GameObject chicken;
     public GameObject cookedChicken;
+    public GameObject letter;
 
     public GameObject poisonedTea;
     public GameObject progressBarBack;
@@ -96,6 +97,16 @@ public class Servant : Character
                         break;
                 }
                 break;
+            case TileType.STABLE:
+                switch (objectInHand)
+                {
+                    case HoldableObject.LETTER:
+                        objectInHand = HoldableObject.NONE;
+                        objectOwner.FulfillWish();
+                        DeactivateAllSprites();
+                        break;
+                }
+                break;
         }
     }
 
@@ -125,10 +136,14 @@ public class Servant : Character
 
     public void InteractWithNoble(Noble noble)
     {
-        Debug.Log("Servant :" + objectInHand);
-        Debug.Log("Noble :" + noble.currentWish);
-        
-        if(objectInHand == noble.currentWish)
+        if (noble.currentWish == HoldableObject.LETTER)
+        {
+            DeactivateAllSprites();
+            longTask = new LongTask(letter, HoldableObject.LETTER, UnityEngine.Random.Range(1.0f, 2.0f));
+            objectOwner = noble;
+            progressBarBack.SetActive(true);
+        }
+        else if (objectInHand == noble.currentWish && noble.currentWish != HoldableObject.LETTER)
         {
             Debug.Log("Je suis content ! Merci");
             DeactivateAllSprites();
@@ -141,7 +156,8 @@ public class Servant : Character
             DeactivateAllSprites();
             longTask = null;
             noble.KillNoble(this);
-        } else 
+        }
+        else 
         {
             Debug.Log("Gardes, débarassez moi de cet incompétent !");
             DeactivateAllSprites();

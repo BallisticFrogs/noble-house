@@ -10,5 +10,6 @@ public enum TileType
     WALL,
     WELL,
     LARDER,
-    POISONED_BUSH
+    POISONED_BUSH,
+    STABLE
 }

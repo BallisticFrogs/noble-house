@@ -8,6 +8,8 @@ public class Character : Mobile
 
     public LongTask longTask;
 
+    public Noble objectOwner;
+
     public override void Update()
     {
         base.Update();

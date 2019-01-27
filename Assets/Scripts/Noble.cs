@@ -18,6 +18,7 @@ public class Noble : Character
     public Sprite wishWater;
     public Sprite wishTea;
     public Sprite wishHungry;
+    public Sprite wishLetter;
     private bool dying = false;
     private float hitDelay = 0;
     private int poisonDamage;
@@ -30,6 +31,7 @@ public class Noble : Character
     public int cookedChickenCompletionTime = 120;
     public int waterCompletionTime = 40;
     public int teaCompletionTime = 100;
+    public int letterCompletionTime = 130;
 
     public int crossBlinkDelay = 2;
 
@@ -94,6 +96,10 @@ public class Noble : Character
             case HoldableObject.WATER_BUCKET:
                 Debug.Log("Current wish: water");
                 wishGameObject.GetComponent<SpriteRenderer>().sprite = wishWater;
+                break;
+            case HoldableObject.LETTER:
+                Debug.Log("Current wish: letter");
+                wishGameObject.GetComponent<SpriteRenderer>().sprite = wishLetter;
                 break;
         }
     }
@@ -212,6 +218,8 @@ public class Noble : Character
                 return waterCompletionTime;
             case HoldableObject.TEA_POT:
                 return teaCompletionTime;
+            case HoldableObject.LETTER:
+                return letterCompletionTime;
             default:
                 return 0;
         }

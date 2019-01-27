@@ -104,6 +104,8 @@ public class UIManager : MonoBehaviour
             return "I'm thirsty for water!";
             case HoldableObject.TEA_POT:
             return "I'm thirsty for tea!";
+            case HoldableObject.LETTER:
+            return "I need to send a letter!";
             default :
             return null;
         }

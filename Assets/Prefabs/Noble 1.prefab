@@ -99,6 +99,7 @@ MonoBehaviour:
   speed: 0.05
   life: 100
   objectInHand: 0
+  objectOwner: {fileID: 0}
   currentWish: 0
   previousWish: 0
   wishGameObject: {fileID: 2361789744639111807}
@@ -109,12 +110,14 @@ MonoBehaviour:
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}
   wishTea: {fileID: 21300000, guid: 908b04d4f200ca34abd2f0a791618ba2, type: 3}
   wishHungry: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a, type: 3}
-  availableWishes: 0100000002000000020000000400000004000000
+  wishLetter: {fileID: 21300000, guid: bdaed3ed0d6cee74fbe7406aea74b771, type: 3}
+  availableWishes: 01000000020000000200000004000000040000000400000006000000
   minDelayBeforeNewTask: 5
   maxDelayBeforeNewTask: 10
   cookedChickenCompletionTime: 120
   waterCompletionTime: 40
   teaCompletionTime: 100
+  letterCompletionTime: 130
   crossBlinkDelay: 2
 --- !u!61 &549216967192017539
 BoxCollider2D:

@@ -109,10 +109,22 @@ public class Servant : Character
         progressBar.SetActive(false);
     }
 
-    public void InteractWithNoble()
+    public void InteractWithNoble(Noble noble)
     {
         // TODO stuff
-        Debug.Log("interact with noble");
+        if(objectInHand == noble.currentWish)
+        {
+            Debug.Log("Je suis content ! Merci");
+            DeactivateAllSprites();
+            longTask = null;
+            noble.FulfillWish();
+        }
+        else
+        {
+            Debug.Log("Gardes, débarassez moi de cet incompétent !");
+            DeactivateAllSprites();
+            longTask = null;
+        }
     }
 
 }

@@ -122,7 +122,7 @@ public class GameController : MonoBehaviour
             {
                 if ((noble.transform.position - selectedServant.transform.position).magnitude < 1.5f)
                 {
-                    selectedServant.InteractWithNoble();
+                    selectedServant.InteractWithNoble(noble);
                 }
                 else
                 {

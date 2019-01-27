@@ -81,4 +81,9 @@ public class UIManager : MonoBehaviour
             return null;
         }
     }
+
+    public void QuitGame() {
+        Debug.Log("Quit Game");
+        Application.Quit();
+    }
 }

@@ -21,7 +21,7 @@ public class CameraMovement : MonoBehaviour
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
-        if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -14)
+        if (Input.GetKey(KeyCode.LeftArrow) && transform.position.x > -15)
         {
             transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
         }
@@ -39,7 +39,7 @@ public class CameraMovement : MonoBehaviour
         {
             transform.position += mRightDirection * Time.deltaTime * speed;
         }
-        if (Input.mousePosition.x <= margin && transform.position.x > -14)
+        if (Input.mousePosition.x <= margin && transform.position.x > -15)
         {
             transform.position += mLeftDirection * Time.deltaTime * speed;
         }

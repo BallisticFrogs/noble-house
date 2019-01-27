@@ -9,7 +9,6 @@ public class Fighter : Character
     public float reach = 1.5f;
     public float dps = 10;
     public float hitsPerSec = 2;
-    public GameObject bloodPrefab;
 
     private float hitDelay = 0;
 
@@ -42,7 +41,7 @@ public class Fighter : Character
                 {
                     currentTarget.life -= dps / hitsPerSec;
                     hitDelay = 1f / hitsPerSec;
-                    Instantiate(bloodPrefab, currentTarget.transform.position, currentTarget.transform.rotation);
+                    currentTarget.OnPhysicalHit();
                 }
 
                 if (currentTarget.life <= 0)

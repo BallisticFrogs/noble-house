@@ -12,18 +12,12 @@ public class Noble : Character
 
     public GameObject wishGameObject;
     public GameObject bubbleGameObject;
-    public GameObject pukePrefab;
     public GameObject crossGameObject;
-    
+
     public Sprite wishWater;
     public Sprite wishTea;
     public Sprite wishHungry;
     public Sprite wishLetter;
-    private bool dying = false;
-    private float hitDelay = 0;
-    private int poisonDamage;
-    private Servant murderer;
-    private int hitCounter = 0;
     public HoldableObject[] availableWishes = new HoldableObject[] { HoldableObject.COOKED_CHICKEN, HoldableObject.WATER_BUCKET, HoldableObject.TEA_POT };
     public int minDelayBeforeNewTask = 2;
     public int maxDelayBeforeNewTask = 5;
@@ -44,16 +38,16 @@ public class Noble : Character
     public override void Update()
     {
         base.Update();
-        if (dying) {
-            UpdateDying();
-        }
+
         //TODO asking for servant²
         if (currentWish == HoldableObject.NONE)
         {
             if (delayBeforeNewTask > 0)
             {
                 delayBeforeNewTask -= Time.deltaTime;
-            } else {
+            }
+            else
+            {
                 PickTask();
             }
 
@@ -104,8 +98,10 @@ public class Noble : Character
         }
     }
 
-    public void FulfillWish (){
-        if (!WishExpired(currentWishTimeCompletion)) {
+    public void FulfillWish()
+    {
+        if (!WishExpired(currentWishTimeCompletion))
+        {
             previousWish = currentWish;
             InitNoble();
             GameController.INSTANCE.CompleteActiveTask(this);
@@ -122,7 +118,8 @@ public class Noble : Character
 
     bool WishExpired(float elapsedTime)
     {
-        if (currentWishTimeCompletion > GetExpectedWishCompletionTime(currentWish)) {
+        if (currentWishTimeCompletion > GetExpectedWishCompletionTime(currentWish))
+        {
             return true;
         }
         return false;
@@ -139,31 +136,16 @@ public class Noble : Character
         bubbleGameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
     }
 
-    public void KillNoble(Servant servant) {
-        dying = true;
-        poisonDamage = Random.Range(20, 100);
-        murderer = servant;
-    }
-
-    private void UpdateDying(){
-        if (hitDelay > 0)
+    protected override void OnPoisonHit(int hitCount, Servant poisonMurderer)
+    {
+        if (hitCount == 2 || hitCount == 4)
         {
-            hitDelay -= Time.deltaTime;
-        }
-        if (hitDelay <= 0)
-        {
-            life -= poisonDamage;
-            hitDelay = 1;
-            hitCounter += 1;
-            target = GameController.INSTANCE.GetDyingTarget(this);
-            Instantiate(pukePrefab, transform.position, transform.rotation);
-            if (hitCounter > 2 ) {
-                OrderToKillSpecificServant(murderer);
-            }
+            OrderToKillSpecificServant(poisonMurderer);
         }
     }
 
-    public void OrderToKillSpecificServant(Servant servant){
+    public void OrderToKillSpecificServant(Servant servant)
+    {
         // find closest guard
         GameObject[] guards = GameObject.FindGameObjectsWithTag(Tags.GUARD);
         GameObject closestGuard = FindClosest(guards);
@@ -174,7 +156,8 @@ public class Noble : Character
         }
     }
 
-    public void OrderToKillClosestServant() {
+    public void OrderToKillClosestServant()
+    {
         // find closest guard
         GameObject[] guards = GameObject.FindGameObjectsWithTag(Tags.GUARD);
         GameObject closestGuard = FindClosest(guards);
@@ -191,25 +174,8 @@ public class Noble : Character
         }
     }
 
-    private GameObject FindClosest(GameObject[] objs)
+    private int GetExpectedWishCompletionTime(HoldableObject o)
     {
-        GameObject closest = null;
-        float dist = float.MaxValue;
-
-        foreach (var currObj in objs)
-        {
-            float d = (currObj.transform.position - transform.position).magnitude;
-            if (d <= dist)
-            {
-                dist = d;
-                closest = currObj;
-            }
-        }
-
-        return closest;
-    }
-
-    private int GetExpectedWishCompletionTime (HoldableObject o) {
         switch (currentWish)
         {
             case HoldableObject.COOKED_CHICKEN:
@@ -225,25 +191,37 @@ public class Noble : Character
         }
     }
 
-    private void UpdateBubble() {
+    private void UpdateBubble()
+    {
         // Color of the bubble
         float redColor = currentWishTimeCompletion / GetExpectedWishCompletionTime(currentWish);
-        if (redColor < 0.25) {
+        if (redColor < 0.25)
+        {
             redColor = 0f;
-        }  else if (redColor < 0.5) {
+        }
+        else if (redColor < 0.5)
+        {
             redColor = 0.25f;
-        } else if (redColor < 0.75) {
+        }
+        else if (redColor < 0.75)
+        {
             redColor = 0.5f;
-        } else {
+        }
+        else
+        {
             redColor = 1f;
         }
         bubbleGameObject.GetComponent<SpriteRenderer>().color = new Color(1, 1 - redColor, 1 - redColor);
 
         // cross state
-        if (currentWishTimeCompletion > GetExpectedWishCompletionTime(currentWish) / 2) {
-            if (currentWishTimeCompletion % crossBlinkDelay*2 < crossBlinkDelay) {
+        if (currentWishTimeCompletion > GetExpectedWishCompletionTime(currentWish) / 2)
+        {
+            if (currentWishTimeCompletion % crossBlinkDelay * 2 < crossBlinkDelay)
+            {
                 crossGameObject.SetActive(true);
-            } else {
+            }
+            else
+            {
                 crossGameObject.SetActive(false);
             }
         }

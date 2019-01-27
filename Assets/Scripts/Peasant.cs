@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Peasant : Fighter
 {
-    // Start is called before the first frame update
 
     public float jumpHeight = 0.2f;
 

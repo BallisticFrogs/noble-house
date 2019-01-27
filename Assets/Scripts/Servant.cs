@@ -79,11 +79,12 @@ public class Servant : Character
                 }
                 break;
             case TileType.POISONED_BUSH:
-                    if (objectInHand == HoldableObject.WATER_BUCKET) {
-                        DeactivateAllSprites();
-                        longTask = new LongTask(waterBucket, poisonedTea, HoldableObject.POISONED_TEA, UnityEngine.Random.Range(2.0f, 5.0f));
-                        progressBarBack.SetActive(true);
-                    }
+                if (objectInHand == HoldableObject.WATER_BUCKET)
+                {
+                    DeactivateAllSprites();
+                    longTask = new LongTask(waterBucket, poisonedTea, HoldableObject.POISONED_TEA, UnityEngine.Random.Range(2.0f, 5.0f));
+                    progressBarBack.SetActive(true);
+                }
                 break;
             case TileType.THRONE:
                 switch (objectInHand)
@@ -129,7 +130,7 @@ public class Servant : Character
         if (previousObjectToReactivate)
         {
             previousObjectToReactivate.SetActive(true);
-        }        
+        }
         progressBarBack.SetActive(false);
         progressBar.SetActive(false);
     }
@@ -151,21 +152,40 @@ public class Servant : Character
             longTask = null;
             noble.FulfillWish();
         }
-        else if ( objectInHand == HoldableObject.POISONED_TEA) 
+        else if (objectInHand == HoldableObject.POISONED_TEA)
         {
             Debug.Log("AaAahHh ! C'est du poison !! Salaud !!");
             DeactivateAllSprites();
             objectInHand = HoldableObject.NONE;
             longTask = null;
-            noble.KillNoble(this);
+            noble.Poison(this);
         }
-        else 
+        else
         {
             Debug.Log("Gardes, débarassez moi de cet incompétent !");
             DeactivateAllSprites();
             objectInHand = HoldableObject.NONE;
             noble.FailWish();
             longTask = null;
+        }
+    }
+
+    public void InteractWithguard(Guard guard)
+    {
+        if (objectInHand == HoldableObject.COOKED_CHICKEN)
+        {
+            Debug.Log("Ouh nice ! Allons buter des nobles !");
+            DeactivateAllSprites();
+            longTask = null;
+            guard.Corrupt();
+        } 
+        
+        if (objectInHand == HoldableObject.POISONED_TEA)
+        {
+            Debug.Log("Oh bitch, I am dying !");
+            DeactivateAllSprites();
+            longTask = null;
+            guard.Poison(this);
         }
     }
 

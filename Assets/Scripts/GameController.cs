@@ -22,6 +22,10 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public Servant selectedServant;
 
+    public float guardCorruptionDelay = 5;
+    [HideInInspector]
+    public bool internalPurge;
+
     private bool gameOver;
 
     void Awake()
@@ -76,7 +80,6 @@ public class GameController : MonoBehaviour
         return path;
     }
 
-
     void Update()
     {
         if (gameOver) return;
@@ -125,7 +128,7 @@ public class GameController : MonoBehaviour
         {
             if (selectedServant != null)
             {
-                bool handled = DetectClickOnNoble();
+                bool handled = DetectClickOnNobleOrGuard();
                 if (!handled)
                 {
                     handled = DetectClickOnSpecialTile();
@@ -139,7 +142,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private bool DetectClickOnNoble()
+    private bool DetectClickOnNobleOrGuard()
     {
         // raycast to find collider under mouse
         RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -151,6 +154,23 @@ public class GameController : MonoBehaviour
                 if ((noble.transform.position - selectedServant.transform.position).magnitude < 1.5f)
                 {
                     selectedServant.InteractWithNoble(noble);
+                }
+                else
+                {
+                    // clic directly on it : move close to him
+                    Vector3Int cell = tilemap.WorldToCell(noble.transform.position);
+                    cell = FindClosestFreeCellNear(cell, noble);
+                    selectedServant.SetTarget(cell);
+                }
+                return true;
+            }
+
+            var guard = rayhit.collider.gameObject.GetComponent<Guard>();
+            if (guard != null)
+            {
+                if ((guard.transform.position - selectedServant.transform.position).magnitude < 1.5f)
+                {
+                    selectedServant.InteractWithguard(guard);
                 }
                 else
                 {
@@ -194,7 +214,7 @@ public class GameController : MonoBehaviour
     private bool isServantCloseToTile(Vector3Int servantCoords, Vector3Int cellMouse)
     {
         if (Math.Abs(servantCoords.x - cellMouse.x) < 1.5 && Math.Abs(servantCoords.y - cellMouse.y) < 1.5)
-        {   
+        {
             return true;
         }
         return false;
@@ -210,7 +230,8 @@ public class GameController : MonoBehaviour
          Debug.Log("Task failed!");
     }
 
-    public Vector3Int GetDyingTarget(Noble noble) {        
+    public Vector3Int GetAgonizingMoveTarget(Character noble)
+    {
         Vector3Int cell = tilemap.WorldToCell(noble.transform.position);
         return FindClosestFreeCellNear(cell, noble);
     }

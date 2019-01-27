@@ -376,6 +376,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
+  margin: 10
+  mRightDirection: {x: 1, y: 0, z: 0}
+  mLeftDirection: {x: -1, y: 0, z: 0}
+  mUpDirection: {x: 0, y: 1, z: 0}
+  mDownDirection: {x: 0, y: -1, z: 0}
 --- !u!1 &1820435581 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1308409822046281704, guid: 6d5b44263a53d95488eb2c370b6de183,
@@ -517,11 +522,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4334237074447368161, guid: 40ea18bbe3407f14291408fd768d88b0,
-        type: 3}
-      propertyPath: activePeasantBySuccess
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5914738395279975815, guid: 40ea18bbe3407f14291408fd768d88b0,
         type: 3}

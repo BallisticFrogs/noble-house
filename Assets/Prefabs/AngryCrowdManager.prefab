@@ -43,3 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 739d7d6192d531d4f85123e01092745a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activePeasantBySuccess: 5
+  rampaging: 0
+  peasantsStagingArea: {fileID: 0}

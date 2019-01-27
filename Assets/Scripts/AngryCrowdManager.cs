@@ -10,6 +10,7 @@ public class AngryCrowdManager : MonoBehaviour
 
     public bool rampaging;
 
+    [HideInInspector]
     public Transform peasantsStagingArea;
 
     void Awake()

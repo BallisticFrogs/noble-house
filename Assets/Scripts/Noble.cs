@@ -6,6 +6,7 @@ public class Noble : Character
 {
     [HideInInspector]
     public HoldableObject currentWish;
+    public HoldableObject previousWish;
     private float currentWishTimeCompletion; // Time the Noble has been waiting for the completion of the task
     private float delayBeforeNewTask;
 
@@ -17,8 +18,8 @@ public class Noble : Character
     public Sprite wishHungry;
 
     public HoldableObject[] availableWishes = new HoldableObject[] { HoldableObject.COOKED_CHICKEN, HoldableObject.WATER_BUCKET, HoldableObject.TEA_POT };
-    public int minDelayBeforeNewTask = 10;
-    public int maxDelayBeforeNewTask = 20;
+    public int minDelayBeforeNewTask = 2;
+    public int maxDelayBeforeNewTask = 5;
 
     public override void Start()
     {
@@ -36,29 +37,8 @@ public class Noble : Character
             if (delayBeforeNewTask > 0)
             {
                 delayBeforeNewTask -= Time.deltaTime;
-            }
-            else
-            {
-                // Pick a task
-                currentWish = availableWishes[(int)Random.Range(0, availableWishes.Length)];
-                GameController.INSTANCE.AddActiveTasks(this, currentWish);
-                bubbleGameObject.SetActive(true);
-                wishGameObject.SetActive(true);
-                switch (currentWish)
-                {
-                    case HoldableObject.COOKED_CHICKEN:
-                        Debug.Log("Current wish: hungry");
-                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
-                        break;
-                    case HoldableObject.TEA_POT:
-                        Debug.Log("Current wish: tea");
-                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishTea;
-                        break;
-                    case HoldableObject.WATER_BUCKET:
-                        Debug.Log("Current wish: water");
-                        wishGameObject.GetComponent<SpriteRenderer>().sprite = wishWater;
-                        break;
-                }
+            } else {
+                PickTask();
             }
 
         }
@@ -73,15 +53,32 @@ public class Noble : Character
                 // GameOverManager.INSTANCE.GameOverDefeat();
             }
         }
-        // TODO replace by true fullfill condition
-        if (Input.GetKeyUp(KeyCode.A))
+    }
+
+    void PickTask()
+    {
+        currentWish = availableWishes[(int)Random.Range(0, availableWishes.Length)];
+        if (previousWish != HoldableObject.NONE && previousWish == currentWish)
         {
-            GameController.INSTANCE.CompleteActiveTask(this);
+            PickTask();
         }
-        // TODO replace by true failed condition
-        if (Input.GetKeyUp(KeyCode.Z))
+        GameController.INSTANCE.AddActiveTasks(this, currentWish);
+        bubbleGameObject.SetActive(true);
+        wishGameObject.SetActive(true);
+        switch (currentWish)
         {
-            GameController.INSTANCE.FailedActiveTask(this);
+            case HoldableObject.COOKED_CHICKEN:
+                Debug.Log("Current wish: hungry");
+                wishGameObject.GetComponent<SpriteRenderer>().sprite = wishHungry;
+                break;
+            case HoldableObject.TEA_POT:
+                Debug.Log("Current wish: tea");
+                wishGameObject.GetComponent<SpriteRenderer>().sprite = wishTea;
+                break;
+            case HoldableObject.WATER_BUCKET:
+                Debug.Log("Current wish: water");
+                wishGameObject.GetComponent<SpriteRenderer>().sprite = wishWater;
+                break;
         }
     }
 
@@ -95,10 +92,9 @@ public class Noble : Character
         }
     }
 
-    public void FulfillWish()
-    {
-        if (!WishExpired(currentWishTimeCompletion))
-        {
+    public void FulfillWish (){
+        if (!WishExpired(currentWishTimeCompletion)) {
+            previousWish = currentWish;
             InitNoble();
             GameController.INSTANCE.CompleteActiveTask(this);
             // GameOverManager.INSTANCE.GameOverVictory();

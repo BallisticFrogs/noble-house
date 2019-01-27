@@ -43,4 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f452f53d7857b3edb2b22e72a29358f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 1308409822046281704, guid: 6d5b44263a53d95488eb2c370b6de183,
+    type: 3}
+  SELECTEC_COLOR: {r: 0, g: 1, b: 0, a: 1}
   tilemap: {fileID: 0}
+  selectedServant: {fileID: 0}

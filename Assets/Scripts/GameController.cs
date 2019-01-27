@@ -9,6 +9,7 @@ using SettlersEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController INSTANCE;
+    public GameObject uiManager;
 
     public UnityEngine.Color SELECTEC_COLOR = new UnityEngine.Color(0, 1, 0);
 
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
     {
         INSTANCE = this;
         InitPathfinding();
+        uiManager.SetActive(true);
     }
 
     private void InitPathfinding()

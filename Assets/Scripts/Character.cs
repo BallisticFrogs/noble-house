@@ -14,8 +14,12 @@ public class Character : Mobile
 
         if (life <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    protected virtual void Die() {
+        Destroy(gameObject);
     }
 
 }

@@ -130,6 +130,7 @@ public class Servant : Character
         {
             Debug.Log("Gardes, débarassez moi de cet incompétent !");
             DeactivateAllSprites();
+            noble.FailWish();
             longTask = null;
         }
     }

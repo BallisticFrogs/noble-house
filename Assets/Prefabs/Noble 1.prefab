@@ -99,6 +99,7 @@ MonoBehaviour:
   life: 100
   objectInHand: 0
   currentWish: 0
+  previousWish: 0
   wishGameObject: {fileID: 2361789744639111807}
   bubbleGameObject: {fileID: 7525968555264995214}
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}

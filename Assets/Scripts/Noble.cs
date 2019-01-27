@@ -86,10 +86,9 @@ public class Noble : Character
     {
         currentWish = wish;
         //Do not add task if noble is idling.
-        if (HoldableObject.NONE != wish)
-        {
-            UIManager.INSTANCE.AddTask(currentWish);
-        }
+        if (HoldableObject.NONE != wish ) {
+            GameController.INSTANCE.AddActiveTasks(this, currentWish);
+        }      
     }
 
     public void FulfillWish (){

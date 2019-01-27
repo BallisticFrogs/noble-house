@@ -23,7 +23,8 @@ public class GameController : MonoBehaviour
 
     private bool gameOver;
 
-    private Dictionary<Noble, HoldableObject> activeTasks = new Dictionary<Noble, HoldableObject>();
+    private List<KeyValuePair<Noble, HoldableObject>> activeTasks = new List<KeyValuePair<Noble, HoldableObject>>();
+
     void Awake()
     {
         INSTANCE = this;
@@ -96,6 +97,7 @@ public class GameController : MonoBehaviour
             GameOverManager.INSTANCE.GameOverVictory();
         }
 
+        UpdateTaskLists();
         // handle servant selection/deselection
         if (Input.GetMouseButtonDown(0))
         {
@@ -197,34 +199,41 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void AddActiveTasks(Noble noble, HoldableObject wish)
-    {
-        activeTasks.Add(noble, wish);
-        UIManager.INSTANCE.AddTask(wish);
-        // UIManager.INSTANCE.happynessLevel --;
-        // UIManager.INSTANCE.angrynessLevel --;
-        Debug.Log("New Task");
+    private void UpdateTaskLists () {
+        UIManager ui = UIManager.INSTANCE;
+        for (int i = 0; i < activeTasks.Count; i++ )
+        {   
+            // Debug.Log(activeTasks[i]);
+            if( i >= ui.TASK_LIST_SIZE) {
+                return;
+            }
+            ui.updateListItem(ui.tasksList[i], activeTasks[i].Value);
+        }
     }
 
-    public void CompleteActiveTask(Noble noble)
-    {
-        HoldableObject wish;
-        activeTasks.TryGetValue(noble, out wish);
-        UIManager.INSTANCE.RemoveTask(wish);
-        activeTasks.Remove(noble);
+    public void AddActiveTasks(Noble noble, HoldableObject wish){
+        // Debug.Log("Add to collection " + noble + " " + wish);
+        activeTasks.Add(new KeyValuePair<Noble, HoldableObject>(noble, wish));
+        // UIManager.INSTANCE.happynessLevel --;
+        // UIManager.INSTANCE.angrynessLevel --;
+        // Debug.Log("New Task");
+    }
+
+    public void CompleteActiveTask(Noble noble) {
+        removeFromActiveTasks(noble);
         UIManager.INSTANCE.happynessLevel--;
         UIManager.INSTANCE.angrynessLevel++;
         AngryCrowdManager.INSTANCE.addPeasant();
-        Debug.Log("Task fullfilled!");
-    }
+        // Debug.Log("Task fullfilled!");
+    } 
 
-    public void FailedActiveTask(Noble noble)
-    {
-        activeTasks.Remove(noble);
+    public void FailedActiveTask(Noble noble) {
+        removeFromActiveTasks(noble);
         UIManager.INSTANCE.happynessLevel++;
         UIManager.INSTANCE.angrynessLevel--;
         noble.OrderToKillServant();
-        Debug.Log("Task failed!");
+        AngryCrowdManager.INSTANCE.RemovePeasant();
+        // Debug.Log("Task failed!");
     }
 
     private Vector3Int FindClosestFreeCellNear(Vector3Int cell, Character character)
@@ -255,4 +264,16 @@ public class GameController : MonoBehaviour
         return closestCell;
     }
 
+
+    private bool removeFromActiveTasks(Noble noble) {
+        foreach (KeyValuePair<Noble, HoldableObject> pair in activeTasks) {
+            if (pair.Key.Equals(noble) ){
+                // RemoveAt update indexes in list.
+                // Debug.Log("Remove active tasks index " + activeTasks.IndexOf(pair));
+                activeTasks.RemoveAt(activeTasks.IndexOf(pair));
+                return true;
+            }
+        }
+        return false;
+    }
 }

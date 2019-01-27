@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
     public GameObject task6;
     public GameObject task7;
 
-    private static readonly int TASK_LIST_SIZE = 8;
+    public readonly int TASK_LIST_SIZE = 8;
     private int taskCounter=0;
     // Start is called before the first frame update
     void Start()
@@ -76,32 +76,18 @@ public class UIManager : MonoBehaviour
         otherSlider.value = otherLevel;
     }
 
-    // 9 displayed tasks only. Return false if tasklist full
-    public bool AddTask(HoldableObject wish) { 
-        if (taskCounter < TASK_LIST_SIZE -1) {
-            Text taskText = tasksList[taskCounter].GetComponent<Text>();
-            taskText.text = GetTextFromWish(wish);
-            taskCounter ++;
-            Debug.Log("add task " + taskText.text);
-            return true;
+
+
+    public void updateListItem(GameObject task, HoldableObject wish) {
+        Debug.Log("Update Task " + task + " wish " + wish);
+        if ( task == task7 ) {
+            task.GetComponent<Text>().text = "And more ...";
         }
-        return false;
+        task.GetComponent<Text>().text = GetTextFromWish(wish);
     }
 
-    
-    public bool RemoveTask(HoldableObject wish) {
-        for (int i = 0 ; i < TASK_LIST_SIZE; i++) {
-            Text taskText = tasksList[i].GetComponent<Text>();
-            if (taskText.text.Equals(GetTextFromWish(wish)) ) {
-                taskText.text = "";
-                taskCounter --;
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private string GetTextFromWish(HoldableObject wish){
+    public string GetTextFromWish(HoldableObject wish){
         switch(wish) 
         {
             case HoldableObject.COOKED_CHICKEN:
@@ -114,35 +100,4 @@ public class UIManager : MonoBehaviour
             return null;
         }
     }
-
-    // public void addHappiness(){
-    //     happynessLevel = Math.Min(happynessMax, happynessLevel ++);
-    //     Debug.Log("happyness " + happynessLevel);
-    // }
-
-    // public void addAngryness(){
-    //     angrynessLevel = Math.Min(angrynessLevel, angrynessLevel ++);
-    //     Debug.Log("angryness " + angrynessLevel);
-    // }
-
-    // public void addOther(){
-    //     otherLevel = Math.Min(otherLevel, otherLevel ++);
-    //     Debug.Log("other " + otherLevel);
-    // }
-
-    // public void removeHappiness(){
-    //     happynessLevel = Math.Max(0, happynessLevel --);
-    //     Debug.Log("happyness " + happynessLevel);
-    // }
-
-    // public void removeAngryness(){
-    //     angrynessLevel = Math.Max(0, angrynessLevel --);
-    //     Debug.Log("angryness " + angrynessLevel);
-    // }
-
-    // public void removeOther(){
-    //     otherLevel = Math.Max(0, otherLevel --);
-    //     Debug.Log("other " + otherLevel);
-    // }
-
 }

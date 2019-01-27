@@ -105,7 +105,7 @@ MonoBehaviour:
   wishWater: {fileID: 21300000, guid: 00b32d475a353b145b125e628fb321f5, type: 3}
   wishTea: {fileID: 21300000, guid: 908b04d4f200ca34abd2f0a791618ba2, type: 3}
   wishHungry: {fileID: 21300000, guid: 716489ce8d54cd946b08f7020bb4846a, type: 3}
-  availableWishes: 040000000100000002000000
+  availableWishes: 0100000002000000020000000400000004000000
   minDelayBeforeNewTask: 5
   maxDelayBeforeNewTask: 10
 --- !u!61 &549216967192017539

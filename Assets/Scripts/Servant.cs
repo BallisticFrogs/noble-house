@@ -147,6 +147,7 @@ public class Servant : Character
         {
             Debug.Log("Je suis content ! Merci");
             DeactivateAllSprites();
+            objectInHand = HoldableObject.NONE;
             longTask = null;
             noble.FulfillWish();
         }
@@ -154,6 +155,7 @@ public class Servant : Character
         {
             Debug.Log("AaAahHh ! C'est du poison !! Salaud !!");
             DeactivateAllSprites();
+            objectInHand = HoldableObject.NONE;
             longTask = null;
             noble.KillNoble(this);
         }
@@ -161,6 +163,7 @@ public class Servant : Character
         {
             Debug.Log("Gardes, débarassez moi de cet incompétent !");
             DeactivateAllSprites();
+            objectInHand = HoldableObject.NONE;
             noble.FailWish();
             longTask = null;
         }

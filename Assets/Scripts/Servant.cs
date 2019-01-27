@@ -106,14 +106,19 @@ public class Servant : Character
             previousObjectToReactivate = longTask.previousHeldGameObject;
         }
         longTask = null;
-        previousObjectToReactivate.SetActive(true);
+        if (previousObjectToReactivate)
+        {
+            previousObjectToReactivate.SetActive(true);
+        }        
         progressBarBack.SetActive(false);
         progressBar.SetActive(false);
     }
 
     public void InteractWithNoble(Noble noble)
     {
-        // TODO stuff
+        Debug.Log("Servant :" + objectInHand);
+        Debug.Log("Noble :" + noble.currentWish);
+        
         if(objectInHand == noble.currentWish)
         {
             Debug.Log("Je suis content ! Merci");
